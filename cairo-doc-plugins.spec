@@ -85,7 +85,7 @@ threw files or unmount diisks with drag'n'drop,
 warn you if you use too much space,
 and display usefull info about your dustbins.
 
-%files -n %{packagename}-dustbin -f cd-dusbin.lang
+%files -n %{packagename}-dustbin -f cd-dustbin.lang
 %defattr(-, root, root)
 %{_libdir}/cairo-dock/dustbin
 %{_libdir}/cairo-dock/libcd-dustbin.so
@@ -245,10 +245,10 @@ keyboard shortcut for it.)
 Middle-click to set or unset mute. This applet works with
 the Alsa sound drivers.
 
-%files -n %{packagename}-alsamixer -f cd-alsaMixer.lang
+%files -n %{packagename}-alsamixer -f cd-AlsaMixer.lang
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/alsaMixer
-%{_libdir}/cairo-dock/libcd-alsaMixer.so
+%{_libdir}/cairo-dock/AlsaMixer
+%{_libdir}/cairo-dock/libcd-AlsaMixer.so
 
 #---------------------------------------------------------------------
 %package -n %{packagename}-cairo-penguin
@@ -324,7 +324,7 @@ Requires: %{packagename} = %{version}
 %description -n %{packagename}-xfce-integration
 This applet provides functions for a better integration into XFCE.
 
-%files -n %{packagename}-xfce-integration -f cd-xfce-integration.lang
+%files -n %{packagename}-xfce-integration
 %defattr(-, root, root)
 %{_libdir}/cairo-dock/xfce-integration
 %{_libdir}/cairo-dock/libcd-xfce-integration.so
@@ -413,10 +413,10 @@ The compiz-icon applet allow you to menage compiz and oher
 windows manager. The sub-dock gives you acces to CCSM, Emerld
 and some basic Compiz actions.
 
-%files -n %{packagename}-compiz-icon -f cd-Compiz-Icon.lang
+%files -n %{packagename}-compiz-icon -f cd-compiz-icon.lang
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/Compiz-Icon
-%{_libdir}/cairo-dock/libcd-Compiz-Icon.so
+%{_libdir}/cairo-dock/compiz-icon
+%{_libdir}/cairo-dock/libcd-compiz-icon.so
 
 #---------------------------------------------------------------------
 %package -n %{packagename}-showdesktop
