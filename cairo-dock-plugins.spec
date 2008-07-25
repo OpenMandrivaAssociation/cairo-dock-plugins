@@ -463,7 +463,7 @@ This applet provides functions for a better integration into GNOME.
 #---------------------------------------------------------------------
 %package -n %{packagename}-nvidia
 Summary: That package provides plugin "nVidia"
-Group: System/GUI/GNOME
+Group: Graphical desktop/Other
 Requires: %{packagename} = %{version}
 
 %description -n %{packagename}-nvidia
