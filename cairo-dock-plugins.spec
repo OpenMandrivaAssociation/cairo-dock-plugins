@@ -10,7 +10,7 @@ Source0: 	http://download.berlios.de/cairo-dock/%name-%version.tar.bz2
 URL:		http://www.cairo-dock.org/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Requires:	cairo-dock >= %version
-BuildRequires:	cairo-dock-devel
+BuildRequires:	cairo-dock-devel >= %version
 BuildRequires:	glib2-devel
 BuildRequires:	vte-devel
 BuildRequires:	libalsa-devel
