@@ -40,6 +40,8 @@ Requires:	%{packagename}-switcher
 Requires:	%{packagename}-dbus
 Requires:	%{packagename}-compiz-icon
 Requires:	%{packagename}-showdesktop
+Requires:	%{packagename}-slider
+Requires:	%{packagename}-stack
 Requires:	%{packagename}-cpusage
 Requires:	%{packagename}-nvidia
 
@@ -68,7 +70,7 @@ allow you to setup time and date.
 
 %files -n %{packagename}-clock -f cd-clock.lang
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/clock
+%{_datadir}/cairo-dock/clock
 %{_libdir}/cairo-dock/libcd-clock.so
 
 #---------------------------------------------------------------------
@@ -86,7 +88,7 @@ and display usefull info about your dustbins.
 
 %files -n %{packagename}-dustbin -f cd-dustbin.lang
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/dustbin
+%{_datadir}/cairo-dock/dustbin
 %{_libdir}/cairo-dock/libcd-dustbin.so
 
 #---------------------------------------------------------------------
@@ -101,7 +103,7 @@ from your session.
 
 %files -n %{packagename}-logout -f cd-logout.lang
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/logout
+%{_datadir}/cairo-dock/logout
 %{_libdir}/cairo-dock/libcd-logout.so
 
 #---------------------------------------------------------------------
@@ -118,7 +120,7 @@ Parabolic and Rainbow views are provided
 
 %files -n %{packagename}-rendering -f cd-rendering.lang
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/rendering
+%{_datadir}/cairo-dock/rendering
 %{_libdir}/cairo-dock/libcd-rendering.so
 
 #---------------------------------------------------------------------
@@ -133,7 +135,7 @@ Play/pause with left click, next song with middle click.
 
 %files -n %{packagename}-rhythmbox -f cd-rhythmbox.lang
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/rhythmbox
+%{_datadir}/cairo-dock/rhythmbox
 %{_libdir}/cairo-dock/libcd-rhythmbox.so
 
 #---------------------------------------------------------------------
@@ -149,7 +151,7 @@ and select an action
 
 %files -n %{packagename}-terminal -f cd-terminal.lang
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/terminal
+%{_datadir}/cairo-dock/terminal
 %{_libdir}/cairo-dock/libcd-terminal.so
 
 #---------------------------------------------------------------------
@@ -164,7 +166,7 @@ It works with ACPI and DBus.
 
 %files -n %{packagename}-powermanager -f cd-powermanager.lang
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/powermanager
+%{_datadir}/cairo-dock/powermanager
 %{_libdir}/cairo-dock/libcd-powermanager.so
 
 #---------------------------------------------------------------------
@@ -181,7 +183,7 @@ don't have Nautilus. Middle-click to acces your desktop easily
 
 %files -n %{packagename}-shortcuts -f cd-shortcuts.lang
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/shortcuts
+%{_datadir}/cairo-dock/shortcuts
 %{_libdir}/cairo-dock/libcd-shortcuts.so
 
 #---------------------------------------------------------------------
@@ -195,7 +197,7 @@ Add a systray to your dock!
 
 %files -n %{packagename}-systray -f cd-systray.lang
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/systray
+%{_datadir}/cairo-dock/systray
 %{_libdir}/cairo-dock/libcd-systray.so
 
 #---------------------------------------------------------------------
@@ -212,7 +214,7 @@ the icons. Data are provided by www.weather.com
 
 %files -n %{packagename}-weather -f cd-weather.lang
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/weather
+%{_datadir}/cairo-dock/weather
 %{_libdir}/cairo-dock/libcd-weather.so
 
 #---------------------------------------------------------------------
@@ -228,7 +230,7 @@ left click, or more accurately with middle click.
 
 %files -n %{packagename}-xgamma -f cd-Xgamma.lang
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/Xgamma
+%{_datadir}/cairo-dock/Xgamma
 %{_libdir}/cairo-dock/libcd-Xgamma.so
 
 #---------------------------------------------------------------------
@@ -246,7 +248,7 @@ the Alsa sound drivers.
 
 %files -n %{packagename}-alsamixer -f cd-AlsaMixer.lang
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/AlsaMixer
+%{_datadir}/cairo-dock/AlsaMixer
 %{_libdir}/cairo-dock/libcd-AlsaMixer.so
 
 #---------------------------------------------------------------------
@@ -262,7 +264,7 @@ Images are from Pingus, Inspiration is from xpenguins.
 
 %files -n %{packagename}-cairo-penguin -f cd-Cairo-Penguin.lang
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/Cairo-Penguin
+%{_datadir}/cairo-dock/Cairo-Penguin
 %{_libdir}/cairo-dock/libcd-Cairo-Penguin.so
 
 #---------------------------------------------------------------------
@@ -279,8 +281,38 @@ you should just use the "Widgets Layer" copabilities of desklets.
 
 %files -n %{packagename}-showdesklets -f cd-showDesklets.lang
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/showDesklets
+%{_datadir}/cairo-dock/showDesklets
 %{_libdir}/cairo-dock/libcd-showDesklets.so
+
+#---------------------------------------------------------------------
+%package -n %{packagename}-slider
+Summary: That package provides a slider plugins
+Group: Graphical desktop/Other
+Requires: %{packagename} = %{version}
+
+%description -n %{packagename}-slider
+The slider applet is a basic image slider.
+
+%files -n %{packagename}-slider -f cd-slider.lang
+%defattr(-, root, root)
+%{_datadir}/cairo-dock/slider
+%{_libdir}/cairo-dock/libcd-slider.so
+
+#---------------------------------------------------------------------
+%package -n %{packagename}-stack
+Summary: That package provides a stack plugins
+Group: Graphical desktop/Other
+Requires: %{packagename} = %{version}
+
+%description -n %{packagename}-stack
+This applet allows you to build a stack of items, just like the Stack
+applet of MacOS X. Items can be files, folders, URL, or even pieces of
+text.
+
+%files -n %{packagename}-stack -f cd-stack.lang
+%defattr(-, root, root)
+%{_datadir}/cairo-dock/stack
+%{_libdir}/cairo-dock/libcd-stack.so
 
 #---------------------------------------------------------------------
 %package -n %{packagename}-wifi
@@ -294,7 +326,7 @@ the first active connection.
 
 %files -n %{packagename}-wifi -f cd-wifi.lang
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/wifi
+%{_datadir}/cairo-dock/wifi
 %{_libdir}/cairo-dock/libcd-wifi.so
 
 #---------------------------------------------------------------------
@@ -311,7 +343,7 @@ You can Drag&Drop sonng to put them in the queue.
 
 %files -n %{packagename}-xmms -f cd-xmms.lang
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/xmms
+%{_datadir}/cairo-dock/xmms
 %{_libdir}/cairo-dock/libcd-xmms.so
 
 #---------------------------------------------------------------------
@@ -325,7 +357,7 @@ This applet provides functions for a better integration into XFCE.
 
 %files -n %{packagename}-xfce-integration
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/xfce-integration
+%{_datadir}/cairo-dock/xfce-integration
 %{_libdir}/cairo-dock/libcd-xfce-integration.so
 
 #---------------------------------------------------------------------
@@ -339,7 +371,7 @@ Control your TomBoy's notes directly in the dock!
 
 %files -n %{packagename}-tomboy -f cd-tomboy.lang
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/tomboy
+%{_datadir}/cairo-dock/tomboy
 %{_libdir}/cairo-dock/libcd-tomboy.so
 
 #---------------------------------------------------------------------
@@ -354,7 +386,7 @@ and make some stats on it.
 
 %files -n %{packagename}-netspeed -f cd-netspeed.lang
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/netspeed
+%{_datadir}/cairo-dock/netspeed
 %{_libdir}/cairo-dock/libcd-netspeed.so
 
 #---------------------------------------------------------------------
@@ -369,7 +401,7 @@ that is currently used
 
 %files -n %{packagename}-rame -f cd-rame.lang
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/rame
+%{_datadir}/cairo-dock/rame
 %{_libdir}/cairo-dock/libcd-rame.so
 
 #---------------------------------------------------------------------
@@ -383,7 +415,7 @@ The new and soon wonderful switcher applet
 
 %files -n %{packagename}-switcher -f cd-switcher.lang
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/switcher
+%{_datadir}/cairo-dock/switcher
 %{_libdir}/cairo-dock/libcd-switcher.so
 
 #---------------------------------------------------------------------
@@ -398,7 +430,7 @@ The communication between both sides is based on Dbus.
 
 %files -n %{packagename}-dbus -f cd-Dbus.lang
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/Dbus
+%{_datadir}/cairo-dock/Dbus
 %{_libdir}/cairo-dock/libcd-Dbus.so
 
 #---------------------------------------------------------------------
@@ -414,7 +446,7 @@ and some basic Compiz actions.
 
 %files -n %{packagename}-compiz-icon -f cd-compiz-icon.lang
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/compiz-icon
+%{_datadir}/cairo-dock/compiz-icon
 %{_libdir}/cairo-dock/libcd-compiz-icon.so
 
 #---------------------------------------------------------------------
@@ -428,7 +460,7 @@ This applet let you acces quickly to your desktop.
 
 %files -n %{packagename}-showdesktop -f cd-showDesktop.lang
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/showDesktop
+%{_datadir}/cairo-dock/showDesktop
 %{_libdir}/cairo-dock/libcd-showDesktop.so
 
 #---------------------------------------------------------------------
@@ -442,7 +474,7 @@ The cpusage applet show you the mount of CPU that is currently used.
 
 %files -n %{packagename}-cpusage -f cd-cpusage.lang
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/cpusage
+%{_datadir}/cairo-dock/cpusage
 %{_libdir}/cairo-dock/libcd-cpusage.so
 
 #---------------------------------------------------------------------
@@ -456,7 +488,7 @@ This applet provides functions for a better integration into GNOME.
 
 %files -n %{packagename}-gnome-integration
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/gnome-integration
+%{_datadir}/cairo-dock/gnome-integration
 %{_libdir}/cairo-dock/libcd-gnome-integration.so
 
 #---------------------------------------------------------------------
@@ -471,7 +503,7 @@ your GPU temp and everything else.
 
 %files -n %{packagename}-nvidia -f cd-nVidia.lang
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/nVidia
+%{_datadir}/cairo-dock/nVidia
 %{_libdir}/cairo-dock/libcd-nVidia.so
 
 #---------------------------------------------------------------------
@@ -511,6 +543,8 @@ rm -f %buildroot%{_libdir}/cairo-dock/libcd-*.la
 %find_lang cd-shortcuts
 %find_lang cd-showDesklets
 %find_lang cd-showDesktop
+%find_lang cd-slider
+%find_lang cd-stack
 %find_lang cd-switcher
 %find_lang cd-systray
 %find_lang cd-terminal
