@@ -2,12 +2,11 @@
 
 Summary:	Plugins for cairo-dock
 Name:     	cairo-dock-plugins
-Version:	1.6.1.2
+Version:	1.6.2.3
 Release:	%mkrel 1
 License:	GPLv3+
 Group:		Graphical desktop/Other
 Source0: 	http://download.berlios.de/cairo-dock/%name-%version.tar.bz2
-Patch0:		cairo-dock-plugins-1.6.1.2-fix-build.patch
 URL:		http://www.cairo-dock.org/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Requires:	cairo-dock >= %version
@@ -478,7 +477,6 @@ your GPU temp and everything else.
 #---------------------------------------------------------------------
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %configure2_5x \
