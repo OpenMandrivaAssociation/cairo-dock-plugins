@@ -478,6 +478,7 @@ The cpusage applet show you the mount of CPU that is currently used.
 %{_libdir}/cairo-dock/libcd-cpusage.so
 
 #---------------------------------------------------------------------
+%if %mdkversion > 200800
 %package -n %{packagename}-gnome-integration
 Summary: That package provides a gnome-integration plugins
 Group: Graphical desktop/Other
@@ -490,6 +491,7 @@ This applet provides functions for a better integration into GNOME.
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/gnome-integration
 %{_libdir}/cairo-dock/libcd-gnome-integration.so
+%endif
 
 #---------------------------------------------------------------------
 %package -n %{packagename}-nvidia
