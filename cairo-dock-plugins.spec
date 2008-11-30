@@ -17,6 +17,7 @@ BuildRequires:	libalsa-devel
 BuildRequires:	thunar-devel
 BuildRequires:	intltool
 BuildRequires:	gnutls-devel
+BuildRequires:	gnome-menus-devel
 Requires:	%{packagename}-clock
 Requires:	%{packagename}-dustbin
 Requires:	%{packagename}-logout
@@ -44,6 +45,7 @@ Requires:	%{packagename}-slider
 Requires:	%{packagename}-stack
 Requires:	%{packagename}-cpusage
 Requires:	%{packagename}-nvidia
+Requires:	%{packagename}-clipper
 
 %description
 cairo-dock uses cairo to render nice graphics, and Glitz to use hardware
@@ -509,6 +511,21 @@ your GPU temp and everything else.
 %{_libdir}/cairo-dock/libcd-nVidia.so
 
 #---------------------------------------------------------------------
+%package -n %{packagename}-clipper
+Summary: That package provides plugin "clipper"
+Group: Graphical desktop/Other
+Requires: %{packagename} = %{version}
+
+%description -n %{packagename}-clipper
+This applet keeps a trace of the clipboard and mouse selection, so that
+you can recall them quickly. It's a clone of the well-know Klipper.
+
+%files -n %{packagename}-clipper -f cd-Clipper.lang
+%defattr(-, root, root)
+%{_datadir}/cairo-dock/plug-ins/Clipper
+%{_libdir}/cairo-dock/libcd-Clipper.so
+
+#---------------------------------------------------------------------
 %prep
 %setup -q
 
@@ -529,6 +546,7 @@ rm -f %buildroot%{_libdir}/cairo-dock/libcd-*.la
 
 %find_lang cd-AlsaMixer
 %find_lang cd-Cairo-Penguin
+%find_lang cd-Clipper
 %find_lang cd-Dbus
 %find_lang cd-Xgamma
 %find_lang cd-clock
