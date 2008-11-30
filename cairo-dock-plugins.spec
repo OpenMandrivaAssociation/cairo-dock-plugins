@@ -46,6 +46,7 @@ Requires:	%{packagename}-stack
 Requires:	%{packagename}-cpusage
 Requires:	%{packagename}-nvidia
 Requires:	%{packagename}-clipper
+Requires:	%{packagename}-gmenu
 
 %description
 cairo-dock uses cairo to render nice graphics, and Glitz to use hardware
@@ -526,6 +527,20 @@ you can recall them quickly. It's a clone of the well-know Klipper.
 %{_libdir}/cairo-dock/libcd-Clipper.so
 
 #---------------------------------------------------------------------
+%package -n %{packagename}-gmenu
+Summary: That package provides plugin "gmenu"
+Group: Graphical desktop/Other
+Requires: %{packagename} = %{version}
+
+%description -n %{packagename}-gmenu
+The new and soon wonderful GMenu applet
+
+%files -n %{packagename}-gmenu -f cd-GMenu.lang
+%defattr(-, root, root)
+%{_datadir}/cairo-dock/plug-ins/GMenu
+%{_libdir}/cairo-dock/libcd-GMenu.so
+
+#---------------------------------------------------------------------
 %prep
 %setup -q
 
@@ -535,7 +550,8 @@ you can recall them quickly. It's a clone of the well-know Klipper.
   --enable-gnome-integration \
   --enable-xfce-integration \
   --enable-alsa-mixer \
-  --enable-terminal
+  --enable-terminal \
+  --enable-gio-in-gmenu
 %make
 
 %install
@@ -548,6 +564,7 @@ rm -f %buildroot%{_libdir}/cairo-dock/libcd-*.la
 %find_lang cd-Cairo-Penguin
 %find_lang cd-Clipper
 %find_lang cd-Dbus
+%find_lang cd-GMenu
 %find_lang cd-Xgamma
 %find_lang cd-clock
 %find_lang cd-compiz-icon
