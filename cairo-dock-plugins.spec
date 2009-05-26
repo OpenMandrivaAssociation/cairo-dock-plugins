@@ -2,7 +2,7 @@
 
 Summary:	Plugins for cairo-dock
 Name:     	cairo-dock-plugins
-Version:	1.6.3.1
+Version:	2.0.3
 Release:	%mkrel 1
 License:	GPLv3+
 Group:		Graphical desktop/Other
