@@ -47,6 +47,16 @@ Requires:	%{packagename}-cpusage
 Requires:	%{packagename}-nvidia
 Requires:	%{packagename}-clipper
 Requires:	%{packagename}-gmenu
+Requires:	%{packagename}-animated-icons
+Requires:	%{packagename}-desklet-rendering
+Requires:	%{packagename}-dialog-rendering
+Requires:	%{packagename}-drop_indicator
+Requires:	%{packagename}-icon-effect
+Requires:	%{packagename}-illusion
+Requires:	%{packagename}-motion_blur
+Requires:	%{packagename}-quick-browser
+Requires:	%{packagename}-show_mouse
+Requires:	%{packagename}-toons
 
 %description
 cairo-dock uses cairo to render nice graphics, and Glitz to use hardware
@@ -57,6 +67,20 @@ This package contains various plugins for cairo-dock.
 
 %files
 %defattr(-, root, root)
+
+#---------------------------------------------------------------------
+%package -n %{packagename}-animated-icons
+Summary: That package provides plugin "Animated icons"
+Group: Graphical desktop/Other
+Requires: %{packagename} = %{version}
+
+%description -n %{packagename}-animated-icons
+This plug-in provides many different animations for your icons.
+
+%files -n %{packagename}-animated-icons -f cd-Animated-icons.lang
+%defattr(-, root, root)
+%{_datadir}/cairo-dock/plug-ins/Animated-icons
+%{_libdir}/cairo-dock/libcd-Animated-icons.so
 
 #---------------------------------------------------------------------
 %package -n %{packagename}-clock
@@ -77,6 +101,48 @@ allow you to setup time and date.
 %{_libdir}/cairo-dock/libcd-clock.so
 
 #---------------------------------------------------------------------
+%package -n %{packagename}-desklet-rendering
+Summary: That package provides plugin "desklet-rendering"
+Group: Graphical desktop/Other
+Requires: %{packagename} = %{version}
+
+%description -n %{packagename}-desklet-rendering
+This module provides different views for your desklets.
+
+%files -n %{packagename}-desklet-rendering -f cd-desklet-rendering.lang
+%defattr(-, root, root)
+%{_datadir}/cairo-dock/plug-ins/desklet-rendering
+%{_libdir}/cairo-dock/libcd-desklet-rendering.so
+
+#---------------------------------------------------------------------
+%package -n %{packagename}-dialog-rendering
+Summary: That package provides plugin "dialog-rendering"
+Group: Graphical desktop/Other
+Requires: %{packagename} = %{version}
+
+%description -n %{packagename}-dialog-rendering
+This plug-in provides some dialog decorators for dialog bubbles.
+
+%files -n %{packagename}-dialog-rendering -f cd-dialog-rendering.lang
+%defattr(-, root, root)
+%{_datadir}/cairo-dock/plug-ins/dialog-rendering
+%{_libdir}/cairo-dock/libcd-dialog-rendering.so
+
+#---------------------------------------------------------------------
+%package -n %{packagename}-drop_indicator
+Summary: That package provides plugin "drop_indicator"
+Group: Graphical desktop/Other
+Requires: %{packagename} = %{version}
+
+%description -n %{packagename}-drop_indicator
+This plug-in displays an animated indicator when you drop something in the dock.
+
+%files -n %{packagename}-drop_indicator -f cd-drop_indicator.lang
+%defattr(-, root, root)
+%{_datadir}/cairo-dock/plug-ins/drop-indicator
+%{_libdir}/cairo-dock/libcd-drop_indicator.so
+
+#---------------------------------------------------------------------
 %package -n %{packagename}-dustbin
 Summary: That package provides plugin "dustbin"
 Group: Graphical desktop/Other
@@ -95,6 +161,34 @@ and display usefull info about your dustbins.
 %{_libdir}/cairo-dock/libcd-dustbin.so
 
 #---------------------------------------------------------------------
+%package -n %{packagename}-icon-effect
+Summary: That package provides plugin "icon-effect"
+Group: Graphical desktop/Other
+Requires: %{packagename} = %{version}
+
+%description -n %{packagename}-icon-effect
+This plug-in adds many special effects to your icons.
+
+%files -n %{packagename}-icon-effect -f cd-icon-effect.lang
+%defattr(-, root, root)
+%{_datadir}/cairo-dock/plug-ins/icon-effect
+%{_libdir}/cairo-dock/libcd-icon-effect.so
+
+#---------------------------------------------------------------------
+%package -n %{packagename}-illusion
+Summary: That package provides plugin "illusion"
+Group: Graphical desktop/Other
+Requires: %{packagename} = %{version}
+
+%description -n %{packagename}-illusion
+This plug-in provides animations for appearance & disappearance of icons.
+
+%files -n %{packagename}-illusion -f cd-illusion.lang
+%defattr(-, root, root)
+%{_datadir}/cairo-dock/plug-ins/illusion
+%{_libdir}/cairo-dock/libcd-illusion.so
+
+#---------------------------------------------------------------------
 %package -n %{packagename}-logout
 Summary: That package provides plugin "logout"
 Group: Graphical desktop/Other
@@ -108,6 +202,38 @@ from your session.
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/logout
 %{_libdir}/cairo-dock/libcd-logout.so
+
+#---------------------------------------------------------------------
+%package -n %{packagename}-motion_blur
+Summary: That package provides plugin "motion_blur"
+Group: Graphical desktop/Other
+Requires: %{packagename} = %{version}
+
+%description -n %{packagename}-motion_blur
+This plug-in adds a motion blur effect on docks.
+
+%files -n %{packagename}-motion_blur -f cd-motion_blur.lang
+%defattr(-, root, root)
+%{_datadir}/cairo-dock/plug-ins/motion-blur
+%{_libdir}/cairo-dock/libcd-motion_blur.so
+
+#---------------------------------------------------------------------
+%package -n %{packagename}-quick-browser
+Summary: That package provides plugin "quick-browser"
+Group: Graphical desktop/Other
+Requires: %{packagename} = %{version}
+
+%description -n %{packagename}-quick-browser
+This applet lets you browse a folder and its sub-folders very quickly.
+You can set up a shortkey to pop up the menu. Midlle-click will open
+the main folder.
+This applet can be instanciated several times, if you want to browse
+different folders.
+
+%files -n %{packagename}-quick-browser -f cd-quick-browser.lang
+%defattr(-, root, root)
+%{_datadir}/cairo-dock/plug-ins/quick_browser
+%{_libdir}/cairo-dock/libcd-quick-browser.so
 
 #---------------------------------------------------------------------
 %package -n %{packagename}-rendering
@@ -190,6 +316,21 @@ don't have Nautilus. Middle-click to acces your desktop easily
 %{_libdir}/cairo-dock/libcd-shortcuts.so
 
 #---------------------------------------------------------------------
+%package -n %{packagename}-show_mouse
+Summary: That package provides plugin "show_mouse"
+Group: Graphical desktop/Other
+Requires: %{packagename} = %{version}
+
+%description -n %{packagename}-show_mouse
+This plug-in draw some animation around the cursor when it's inside a dock
+desklet.
+
+%files -n %{packagename}-show_mouse -f cd-show_mouse.lang
+%defattr(-, root, root)
+%{_datadir}/cairo-dock/plug-ins/show_mouse
+%{_libdir}/cairo-dock/libcd-show_mouse.so
+
+#---------------------------------------------------------------------
 %package -n %{packagename}-systray
 Summary: That package provides a systray plugins
 Group: Graphical desktop/Other
@@ -202,6 +343,21 @@ Add a systray to your dock!
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/systray
 %{_libdir}/cairo-dock/libcd-systray.so
+
+#---------------------------------------------------------------------
+%package -n %{packagename}-toons
+Summary: That package provides plugin "toons"
+Group: Graphical desktop/Other
+Requires: %{packagename} = %{version}
+
+%description -n %{packagename}-toons
+This plug-in draw some animation around the cursor when it's inside a dock
+desklet.
+
+%files -n %{packagename}-toons -f cd-Toons.lang
+%defattr(-, root, root)
+%{_datadir}/cairo-dock/plug-ins/Toons
+%{_libdir}/cairo-dock/libcd-Toons.so
 
 #---------------------------------------------------------------------
 %package -n %{packagename}-weather
@@ -561,25 +717,35 @@ rm -rf $RPM_BUILD_ROOT
 rm -f %buildroot%{_libdir}/cairo-dock/libcd-*.la
 
 %find_lang cd-AlsaMixer
+%find_lang cd-Animated-icons
 %find_lang cd-Cairo-Penguin
 %find_lang cd-Clipper
 %find_lang cd-Dbus
 %find_lang cd-GMenu
+%find_lang cd-Toons
 %find_lang cd-Xgamma
 %find_lang cd-clock
 %find_lang cd-compiz-icon
 %find_lang cd-cpusage
+%find_lang cd-desklet-rendering
+%find_lang cd-dialog-rendering
+%find_lang cd-drop_indicator
 %find_lang cd-dustbin
+%find_lang cd-icon-effect
+%find_lang cd-illusion
 %find_lang cd-logout
+%find_lang cd-motion_blur
 %find_lang cd-nVidia
 %find_lang cd-netspeed
 %find_lang cd-powermanager
+%find_lang cd-quick-browser
 %find_lang cd-rame
 %find_lang cd-rendering
 %find_lang cd-rhythmbox
 %find_lang cd-shortcuts
 %find_lang cd-showDesklets
 %find_lang cd-showDesktop
+%find_lang cd-show_mouse
 %find_lang cd-slider
 %find_lang cd-stack
 %find_lang cd-switcher
