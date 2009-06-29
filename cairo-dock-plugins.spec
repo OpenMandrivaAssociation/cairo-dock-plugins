@@ -19,7 +19,7 @@ BuildRequires:	intltool
 BuildRequires:	gnutls-devel
 BuildRequires:	gnome-menus-devel
 BuildRequires:	libxklavier-devel
-BuildRequires:	webkit-devel
+BuildRequires:	webkitgtk-devel
 Requires:	%{packagename}-clock
 Requires:	%{packagename}-dustbin
 Requires:	%{packagename}-logout
