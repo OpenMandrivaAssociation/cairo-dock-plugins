@@ -2,7 +2,7 @@
 
 Summary:	Plugins for cairo-dock
 Name:     	cairo-dock-plugins
-Version:	2.0.3
+Version:	2.0.6
 Release:	%mkrel 1
 License:	GPLv3+
 Group:		Graphical desktop/Other
@@ -18,6 +18,8 @@ BuildRequires:	thunar-devel
 BuildRequires:	intltool
 BuildRequires:	gnutls-devel
 BuildRequires:	gnome-menus-devel
+BuildRequires:	libxklavier-devel
+BuildRequires:	webkit-devel
 Requires:	%{packagename}-clock
 Requires:	%{packagename}-dustbin
 Requires:	%{packagename}-logout
@@ -57,6 +59,8 @@ Requires:	%{packagename}-motion_blur
 Requires:	%{packagename}-quick-browser
 Requires:	%{packagename}-show_mouse
 Requires:	%{packagename}-toons
+Requires:	%{packagename}-keyboard-indicator
+Requires:	%{packagename}-weblets
 
 %description
 cairo-dock uses cairo to render nice graphics, and Glitz to use hardware
@@ -697,16 +701,48 @@ The new and soon wonderful GMenu applet
 %{_libdir}/cairo-dock/libcd-GMenu.so
 
 #---------------------------------------------------------------------
+%package -n %{packagename}-keyboard-indicator
+Summary: That package provides plugin "keyboard-indicator"
+Group: Graphical desktop/Other
+Requires: %{packagename} = %{version}
+
+%description -n %{packagename}-keyboard-indicator
+This applet lets you control the keyboard layout.
+
+%files -n %{packagename}-keyboard-indicator -f cd-keyboard-indicator.lang
+%defattr(-, root, root)
+%{_datadir}/cairo-dock/plug-ins/icon.svg
+%{_datadir}/cairo-dock/plug-ins/keyboard-indicator.conf
+%{_datadir}/cairo-dock/plug-ins/preview.png
+%{_libdir}/cairo-dock/libcd-keyboard-indicator.so
+
+#---------------------------------------------------------------------
+%package -n %{packagename}-weblets
+Summary: That package provides plugin "weblets"
+Group: Graphical desktop/Other
+Requires: %{packagename} = %{version}
+
+%description -n %{packagename}-weblets
+The weblets applet allows you to show an interactive web page on your desktop.
+
+%files -n %{packagename}-weblets -f cd-weblets.lang
+%defattr(-, root, root)
+%{_datadir}/cairo-dock/plug-ins/weblets
+%{_libdir}/cairo-dock/libcd-weblets.so
+
+#---------------------------------------------------------------------
 %prep
 %setup -q
 
 %build
+autoreconf -fi
 %configure2_5x \
   --disable-old-gnome-integration \
   --enable-gnome-integration \
   --enable-xfce-integration \
   --enable-alsa-mixer \
   --enable-terminal \
+  --enable-keyboard-indicator \
   --enable-gio-in-gmenu
 %make
 
@@ -733,6 +769,7 @@ rm -f %buildroot%{_libdir}/cairo-dock/libcd-*.la
 %find_lang cd-dustbin
 %find_lang cd-icon-effect
 %find_lang cd-illusion
+%find_lang cd-keyboard-indicator
 %find_lang cd-logout
 %find_lang cd-motion_blur
 %find_lang cd-nVidia
@@ -753,6 +790,7 @@ rm -f %buildroot%{_libdir}/cairo-dock/libcd-*.la
 %find_lang cd-terminal
 %find_lang cd-tomboy
 %find_lang cd-weather
+%find_lang cd-weblets
 %find_lang cd-wifi
 %find_lang cd-xmms
 
