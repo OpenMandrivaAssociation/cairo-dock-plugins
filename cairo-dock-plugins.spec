@@ -25,8 +25,8 @@ BuildRequires:	webkitgtk-devel
 Requires:	%{packagename}-clock
 Requires:	%{packagename}-dustbin
 Requires:	%{packagename}-logout
+Requires:	%{packagename}-musicPlayer
 Requires:	%{packagename}-rendering
-Requires:	%{packagename}-rhythmbox
 Requires:	%{packagename}-terminal
 Requires:	%{packagename}-powermanager
 Requires:	%{packagename}-shortcuts
@@ -38,17 +38,14 @@ Requires:	%{packagename}-cairo-penguin
 Requires:	%{packagename}-tomboy
 Requires:	%{packagename}-showdesklets
 Requires:	%{packagename}-wifi
-Requires:	%{packagename}-xmms
 Requires:	%{packagename}-netspeed
-Requires:	%{packagename}-rame
 Requires:	%{packagename}-switcher
 Requires:	%{packagename}-dbus
 Requires:	%{packagename}-compiz-icon
 Requires:	%{packagename}-showdesktop
 Requires:	%{packagename}-slider
 Requires:	%{packagename}-stack
-Requires:	%{packagename}-cpusage
-Requires:	%{packagename}-nvidia
+Requires:	%{packagename}-System-monitor
 Requires:	%{packagename}-clipper
 Requires:	%{packagename}-gmenu
 Requires:	%{packagename}-animated-icons
@@ -63,6 +60,9 @@ Requires:	%{packagename}-show_mouse
 Requires:	%{packagename}-toons
 Requires:	%{packagename}-keyboard-indicator
 Requires:	%{packagename}-weblets
+Requires:	%{packagename}-dnd2share
+Requires:	%{packagename}-kde-integration
+Requires:	%{packagename}-mail
 
 %description
 cairo-dock uses cairo to render nice graphics, and Glitz to use hardware
@@ -75,15 +75,27 @@ This package contains various plugins for cairo-dock.
 %defattr(-, root, root)
 
 #---------------------------------------------------------------------
+%package i18n
+Summary: Translation files for %name
+Group: Graphical desktop/Other
+Requires: %{packagename} = %{version}
+
+%description i18n
+This package contains common translations for %{name}.
+
+%files i18n -f %name.lang
+%defattr(-, root, root)
+
+#---------------------------------------------------------------------
 %package -n %{packagename}-animated-icons
 Summary: That package provides plugin "Animated icons"
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-animated-icons
 This plug-in provides many different animations for your icons.
 
-%files -n %{packagename}-animated-icons -f cd-Animated-icons.lang
+%files -n %{packagename}-animated-icons
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/Animated-icons
 %{_libdir}/cairo-dock/libcd-Animated-icons.so
@@ -92,7 +104,7 @@ This plug-in provides many different animations for your icons.
 %package -n %{packagename}-clock
 Summary: That package provides plugin "clock"
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-clock
 Display rime and date in your dock with the clock applet!
@@ -101,7 +113,7 @@ It can derach itself to be the perfect clone of CairoClock.
 It can warn you with alarms, can display a calendar, and
 allow you to setup time and date.
 
-%files -n %{packagename}-clock -f cd-clock.lang
+%files -n %{packagename}-clock
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/clock
 %{_libdir}/cairo-dock/libcd-clock.so
@@ -110,12 +122,12 @@ allow you to setup time and date.
 %package -n %{packagename}-desklet-rendering
 Summary: That package provides plugin "desklet-rendering"
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-desklet-rendering
 This module provides different views for your desklets.
 
-%files -n %{packagename}-desklet-rendering -f cd-desklet-rendering.lang
+%files -n %{packagename}-desklet-rendering
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/desklet-rendering
 %{_libdir}/cairo-dock/libcd-desklet-rendering.so
@@ -124,26 +136,46 @@ This module provides different views for your desklets.
 %package -n %{packagename}-dialog-rendering
 Summary: That package provides plugin "dialog-rendering"
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-dialog-rendering
 This plug-in provides some dialog decorators for dialog bubbles.
 
-%files -n %{packagename}-dialog-rendering -f cd-dialog-rendering.lang
+%files -n %{packagename}-dialog-rendering
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/dialog-rendering
 %{_libdir}/cairo-dock/libcd-dialog-rendering.so
 
 #---------------------------------------------------------------------
+%package -n %{packagename}-dnd2share
+Summary: That package provides plugin "dnd2share"
+Group: Graphical desktop/Other
+Requires: %{name}-i18n = %{version}
+
+%description -n %{packagename}-dnd2share
+This applet lets you share files easily :
+Drag-and-drop a file on the icon to upload it to one of the available hosting sites.
+It supports many sites, like DropBox, Imageshack, pastebin, etc
+You can upload text, image, video, and files.
+The resulting URL is automatically stored in the clipboard to be directly copied by CTRL+v.
+It can keep an history of your last uploads to retrieve them without any account.
+You'll need to install 'curl' and 'wget' to upload the data.
+
+%files -n %{packagename}-dnd2share
+%defattr(-, root, root)
+%{_datadir}/cairo-dock/plug-ins/dnd2share
+%{_libdir}/cairo-dock/libcd-dnd2share.so
+
+#---------------------------------------------------------------------
 %package -n %{packagename}-drop_indicator
 Summary: That package provides plugin "drop_indicator"
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-drop_indicator
 This plug-in displays an animated indicator when you drop something in the dock.
 
-%files -n %{packagename}-drop_indicator -f cd-drop_indicator.lang
+%files -n %{packagename}-drop_indicator
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/drop-indicator
 %{_libdir}/cairo-dock/libcd-drop_indicator.so
@@ -152,7 +184,7 @@ This plug-in displays an animated indicator when you drop something in the dock.
 %package -n %{packagename}-dustbin
 Summary: That package provides plugin "dustbin"
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-dustbin
 Manage your disks space with this trash applet!
@@ -161,7 +193,7 @@ threw files or unmount diisks with drag'n'drop,
 warn you if you use too much space,
 and display usefull info about your dustbins.
 
-%files -n %{packagename}-dustbin -f cd-dustbin.lang
+%files -n %{packagename}-dustbin
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/dustbin
 %{_libdir}/cairo-dock/libcd-dustbin.so
@@ -170,12 +202,12 @@ and display usefull info about your dustbins.
 %package -n %{packagename}-icon-effect
 Summary: That package provides plugin "icon-effect"
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-icon-effect
 This plug-in adds many special effects to your icons.
 
-%files -n %{packagename}-icon-effect -f cd-icon-effect.lang
+%files -n %{packagename}-icon-effect
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/icon-effect
 %{_libdir}/cairo-dock/libcd-icon-effect.so
@@ -184,50 +216,102 @@ This plug-in adds many special effects to your icons.
 %package -n %{packagename}-illusion
 Summary: That package provides plugin "illusion"
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-illusion
 This plug-in provides animations for appearance & disappearance of icons.
 
-%files -n %{packagename}-illusion -f cd-illusion.lang
+%files -n %{packagename}-illusion
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/illusion
 %{_libdir}/cairo-dock/libcd-illusion.so
 
 #---------------------------------------------------------------------
+%package -n %{packagename}-kde-integration
+Summary: That package provides plugin "kde-integration"
+Group: Graphical desktop/Other
+Requires: %{name}-i18n = %{version}
+
+%description -n %{packagename}-kde-integration
+This applet provides functions for a better integration into a KDE environnement.
+It is auto-activated, so you don't need to activate it.
+It is designed for KDE4.
+
+%files -n %{packagename}-kde-integration
+%defattr(-, root, root)
+%{_datadir}/cairo-dock/plug-ins/kde-integration
+%{_libdir}/cairo-dock/libcd_kde-integration.so
+
+#---------------------------------------------------------------------
 %package -n %{packagename}-logout
 Summary: That package provides plugin "logout"
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-logout
 A very simple applet that adds an icon to log out
 from your session.
 
-%files -n %{packagename}-logout -f cd-logout.lang
+%files -n %{packagename}-logout
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/logout
 %{_libdir}/cairo-dock/libcd-logout.so
 
 #---------------------------------------------------------------------
+%package -n %{packagename}-mail
+Summary: That package provides plugin "mail"
+Group: Graphical desktop/Other
+Requires: %{name}-i18n = %{version}
+
+%description -n %{packagename}-mail
+This applet is very useful to warn you when you get new e-mails
+It can check in any kind of mailbox (yahoo, gmail, etc)
+Left-click to launch the prefered mail application,
+Middle-click to refresh all the mailboxes.
+
+%files -n %{packagename}-mail
+%defattr(-, root, root)
+%{_datadir}/cairo-dock/plug-ins/mail
+%{_libdir}/cairo-dock/libcd-mail.so
+
+#---------------------------------------------------------------------
 %package -n %{packagename}-motion_blur
 Summary: That package provides plugin "motion_blur"
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-motion_blur
 This plug-in adds a motion blur effect on docks.
 
-%files -n %{packagename}-motion_blur -f cd-motion_blur.lang
+%files -n %{packagename}-motion_blur
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/motion-blur
 %{_libdir}/cairo-dock/libcd-motion_blur.so
 
 #---------------------------------------------------------------------
+%package -n %{packagename}-musicPlayer
+Summary: That package provides plugin "musicPlayer"
+Group: Graphical desktop/Other
+Requires: %{name}-i18n = %{version}
+Obsoletes: %{packagename}-rhythmbox < 2.1.2
+Obsoletes: %{packagename}-xmms < 2.1.2
+
+%description -n %{packagename}-musicPlayer
+This applet lets you control any music player.
+Left click to Play/Pause, middle-click to play Next song. Scroll up/down
+to play previous/next song. You can drag and drop songs on the icon to
+put them in the queue,and jpeg image to use as cover.
+
+%files -n %{packagename}-musicPlayer
+%defattr(-, root, root)
+%{_datadir}/cairo-dock/plug-ins/musicPlayer
+%{_libdir}/cairo-dock/libcd-musicPlayer.so
+
+#---------------------------------------------------------------------
 %package -n %{packagename}-quick-browser
 Summary: That package provides plugin "quick-browser"
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-quick-browser
 This applet lets you browse a folder and its sub-folders very quickly.
@@ -236,7 +320,7 @@ the main folder.
 This applet can be instanciated several times, if you want to browse
 different folders.
 
-%files -n %{packagename}-quick-browser -f cd-quick-browser.lang
+%files -n %{packagename}-quick-browser
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/quick_browser
 %{_libdir}/cairo-dock/libcd-quick-browser.so
@@ -245,7 +329,7 @@ different folders.
 %package -n %{packagename}-rendering
 Summary: That package provides plugin "rendering"
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-rendering
 This module adds different views to your dock.
@@ -253,39 +337,23 @@ Any dock or sub-dock can be displayed with the
 view of your choice. Currently, 3D-plane, Caroussel,
 Parabolic and Rainbow views are provided
 
-%files -n %{packagename}-rendering -f cd-rendering.lang
+%files -n %{packagename}-rendering
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/rendering
 %{_libdir}/cairo-dock/libcd-rendering.so
 
 #---------------------------------------------------------------------
-%if 0
-%package -n %{packagename}-rhythmbox
-Summary: That package provides plugin "rhythmbox"
-Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
-
-%description -n %{packagename}-rhythmbox
-Control your Rhythmbox player directly in the dock!
-Play/pause with left click, next song with middle click.
-
-%files -n %{packagename}-rhythmbox -f cd-rhythmbox.lang
-%defattr(-, root, root)
-%{_datadir}/cairo-dock/plug-ins/rhythmbox
-%{_libdir}/cairo-dock/libcd-rhythmbox.so
-%endif
-#---------------------------------------------------------------------
 %package -n %{packagename}-terminal
 Summary: That package provides plugin "terminal"
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-terminal
 Add a terminal to your dock!
 You can drag'n'drop files or text into it
 and select an action
 
-%files -n %{packagename}-terminal -f cd-terminal.lang
+%files -n %{packagename}-terminal
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/terminal
 %{_libdir}/cairo-dock/libcd-terminal.so
@@ -294,13 +362,13 @@ and select an action
 %package -n %{packagename}-powermanager
 Summary: That package provides a powermanager plugins
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-powermanager
 A power manager for laptop's battery
 It works with ACPI and DBus.
 
-%files -n %{packagename}-powermanager -f cd-powermanager.lang
+%files -n %{packagename}-powermanager
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/powermanager
 %{_libdir}/cairo-dock/libcd-powermanager.so
@@ -309,7 +377,7 @@ It works with ACPI and DBus.
 %package -n %{packagename}-shortcuts
 Summary: That package provides a shortcuts plugins
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-shortcuts
 An applets thatlet you acces quickly to all of your shortcuts.
@@ -317,7 +385,7 @@ It can manage disks, network points, and Nautilus bookmarks.
 You can add or remove bookmarks bye drag'n'drop, even if you
 don't have Nautilus. Middle-click to acces your desktop easily
 
-%files -n %{packagename}-shortcuts -f cd-shortcuts.lang
+%files -n %{packagename}-shortcuts
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/shortcuts
 %{_libdir}/cairo-dock/libcd-shortcuts.so
@@ -326,13 +394,13 @@ don't have Nautilus. Middle-click to acces your desktop easily
 %package -n %{packagename}-show_mouse
 Summary: That package provides plugin "show_mouse"
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-show_mouse
 This plug-in draw some animation around the cursor when it's inside a dock
 desklet.
 
-%files -n %{packagename}-show_mouse -f cd-show_mouse.lang
+%files -n %{packagename}-show_mouse
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/show_mouse
 %{_libdir}/cairo-dock/libcd-show_mouse.so
@@ -341,12 +409,12 @@ desklet.
 %package -n %{packagename}-systray
 Summary: That package provides a systray plugins
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-systray
 Add a systray to your dock!
 
-%files -n %{packagename}-systray -f cd-systray.lang
+%files -n %{packagename}-systray
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/systray
 %{_libdir}/cairo-dock/libcd-systray.so
@@ -355,13 +423,13 @@ Add a systray to your dock!
 %package -n %{packagename}-toons
 Summary: That package provides plugin "toons"
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-toons
 This plug-in draw some animation around the cursor when it's inside a dock
 desklet.
 
-%files -n %{packagename}-toons -f cd-Toons.lang
+%files -n %{packagename}-toons
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/Toons
 %{_libdir}/cairo-dock/libcd-Toons.so
@@ -370,7 +438,7 @@ desklet.
 %package -n %{packagename}-weather
 Summary: That package provides a weather plugins
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-weather
 This applet displyas weather into your dock.
@@ -378,7 +446,7 @@ It can detach itself to be a ttally eye-candy 3D Desklet.
 You can have many valuable info by (middle) clicking on
 the icons. Data are provided by www.weather.com
 
-%files -n %{packagename}-weather -f cd-weather.lang
+%files -n %{packagename}-weather
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/weather
 %{_libdir}/cairo-dock/libcd-weather.so
@@ -387,14 +455,14 @@ the icons. Data are provided by www.weather.com
 %package -n %{packagename}-xgamma
 Summary: That package provides a Xgamma plugins
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-xgamma
 Setup the gama of your screen directly from the dock.
 It is a simple port of xgamma. Quickly setup gamma with
 left click, or more accurately with middle click.
 
-%files -n %{packagename}-xgamma -f cd-Xgamma.lang
+%files -n %{packagename}-xgamma
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/Xgamma
 %{_libdir}/cairo-dock/libcd-Xgamma.so
@@ -403,7 +471,7 @@ left click, or more accurately with middle click.
 %package -n %{packagename}-alsamixer
 Summary: That package provides a alsaMixer plugins
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-alsamixer
 This applet let you set up the sound volume from the dock.
@@ -412,7 +480,7 @@ keyboard shortcut for it.)
 Middle-click to set or unset mute. This applet works with
 the Alsa sound drivers.
 
-%files -n %{packagename}-alsamixer -f cd-AlsaMixer.lang
+%files -n %{packagename}-alsamixer
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/AlsaMixer
 %{_libdir}/cairo-dock/libcd-AlsaMixer.so
@@ -421,14 +489,14 @@ the Alsa sound drivers.
 %package -n %{packagename}-cairo-penguin
 Summary: That package provides a Cairo-Penguin plugins
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-cairo-penguin
 Add a lively Penguin in your dock! Left click to change animation,
 right click to disturb him ^_^.
 Images are from Pingus, Inspiration is from xpenguins.
 
-%files -n %{packagename}-cairo-penguin -f cd-Cairo-Penguin.lang
+%files -n %{packagename}-cairo-penguin
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/Cairo-Penguin
 %{_libdir}/cairo-dock/libcd-Cairo-Penguin.so
@@ -437,7 +505,7 @@ Images are from Pingus, Inspiration is from xpenguins.
 %package -n %{packagename}-showdesklets
 Summary: That package provides a showDesklets plugins
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-showdesklets
 This applet let you acces quickly to your desklets.
@@ -445,7 +513,7 @@ Left click to show/hide your desklets.
 Basically, if you are under Compiz, you don't need this applet;
 you should just use the "Widgets Layer" copabilities of desklets.
 
-%files -n %{packagename}-showdesklets -f cd-showDesklets.lang
+%files -n %{packagename}-showdesklets
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/showDesklets
 %{_libdir}/cairo-dock/libcd-showDesklets.so
@@ -454,12 +522,12 @@ you should just use the "Widgets Layer" copabilities of desklets.
 %package -n %{packagename}-slider
 Summary: That package provides a slider plugins
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-slider
 The slider applet is a basic image slider.
 
-%files -n %{packagename}-slider -f cd-slider.lang
+%files -n %{packagename}-slider
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/slider
 %{_libdir}/cairo-dock/libcd-slider.so
@@ -468,56 +536,58 @@ The slider applet is a basic image slider.
 %package -n %{packagename}-stack
 Summary: That package provides a stack plugins
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-stack
 This applet allows you to build a stack of items, just like the Stack
 applet of MacOS X. Items can be files, folders, URL, or even pieces of
 text.
 
-%files -n %{packagename}-stack -f cd-stack.lang
+%files -n %{packagename}-stack
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/stack
 %{_libdir}/cairo-dock/libcd-stack.so
 
 #---------------------------------------------------------------------
+%package -n %{packagename}-System-monitor
+Summary: That package provides plugin "System-monitor"
+Group: Graphical desktop/Other
+Requires: %{name}-i18n = %{version}
+Obsoletes: %{packagename}-rame < 2.1.2
+Obsoletes: %{packagename}-cpusage < 2.1.2
+Obsoletes: %{packagename}-nvidia < 2.1.2
+
+%description -n %{packagename}-System-monitor
+This applet shows you the CPU load, RAM usage, graphic card temperature, etc.
+Middle click on the icon to get some valuable info.
+Left click on the icon to get a list of the most ressources using programs.
+You can instanciate this applet several times to show different values each time.
+
+%files -n %{packagename}-System-monitor
+%defattr(-, root, root)
+%{_datadir}/cairo-dock/plug-ins/System-monitor
+%{_libdir}/cairo-dock/libcd-System-Monitor.so
+
+#---------------------------------------------------------------------
 %package -n %{packagename}-wifi
 Summary: That package provides a wifi plugins
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-wifi
 The wifi applet show you the signal strenght of
 the first active connection.
 
-%files -n %{packagename}-wifi -f cd-wifi.lang
+%files -n %{packagename}-wifi
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/wifi
 %{_libdir}/cairo-dock/libcd-wifi.so
 
 #---------------------------------------------------------------------
-%if 0
-%package -n %{packagename}-xmms
-Summary: That package provides a xmms plugins
-Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
-
-%description -n %{packagename}-xmms
-An applet dedicated to control XMMS, Audacious, Banshee & Exaile.
-Keep in mind that only XMMS & Audacious are fully supported.
-For XMMS you need to install 'xmms-infopipe' plug-in.
-You can Drag&Drop sonng to put them in the queue.
-
-%files -n %{packagename}-xmms -f cd-xmms.lang
-%defattr(-, root, root)
-%{_datadir}/cairo-dock/plug-ins/xmms
-%{_libdir}/cairo-dock/libcd-xmms.so
-%endif
-#---------------------------------------------------------------------
 %package -n %{packagename}-xfce-integration
 Summary: That package provides a xfce-integration plugins
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-xfce-integration
 This applet provides functions for a better integration into XFCE.
@@ -531,12 +601,12 @@ This applet provides functions for a better integration into XFCE.
 %package -n %{packagename}-tomboy
 Summary: That package provides a tomboy plugins
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-tomboy
 Control your TomBoy's notes directly in the dock!
 
-%files -n %{packagename}-tomboy -f cd-tomboy.lang
+%files -n %{packagename}-tomboy
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/tomboy
 %{_libdir}/cairo-dock/libcd-tomboy.so
@@ -545,43 +615,27 @@ Control your TomBoy's notes directly in the dock!
 %package -n %{packagename}-netspeed
 Summary: That package provides a netspeed plugins
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-netspeed
 the netspeed applet show you the bit rate of your internet connection
 and make some stats on it.
 
-%files -n %{packagename}-netspeed -f cd-netspeed.lang
+%files -n %{packagename}-netspeed
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/netspeed
 %{_libdir}/cairo-dock/libcd-netspeed.so
 
 #---------------------------------------------------------------------
-%if 0
-%package -n %{packagename}-rame
-Summary: That package provides a rame plugins
-Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
-
-%description -n %{packagename}-rame
-The rame applet show you the mount of RAM and SWAP
-that is currently used
-
-%files -n %{packagename}-rame -f cd-rame.lang
-%defattr(-, root, root)
-%{_datadir}/cairo-dock/plug-ins/rame
-%{_libdir}/cairo-dock/libcd-rame.so
-%endif
-#---------------------------------------------------------------------
 %package -n %{packagename}-switcher
 Summary: That package provides a switcher plugins
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-switcher
 The new and soon wonderful switcher applet
 
-%files -n %{packagename}-switcher -f cd-switcher.lang
+%files -n %{packagename}-switcher
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/switcher
 %{_libdir}/cairo-dock/libcd-switcher.so
@@ -590,13 +644,13 @@ The new and soon wonderful switcher applet
 %package -n %{packagename}-dbus
 Summary: That package provides a Dbus plugins
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-dbus
 This plug-in lets extern pllication interact on the dock.
 The communication between both sides is based on Dbus.
 
-%files -n %{packagename}-dbus -f cd-Dbus.lang
+%files -n %{packagename}-dbus
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/Dbus
 %{_libdir}/cairo-dock/libcd-Dbus.so
@@ -605,14 +659,14 @@ The communication between both sides is based on Dbus.
 %package -n %{packagename}-compiz-icon
 Summary: That package provides a Compiz-Icon plugins
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-compiz-icon
 The compiz-icon applet allow you to menage compiz and oher
 windows manager. The sub-dock gives you acces to CCSM, Emerld
 and some basic Compiz actions.
 
-%files -n %{packagename}-compiz-icon -f cd-compiz-icon.lang
+%files -n %{packagename}-compiz-icon
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/compiz-icon
 %{_libdir}/cairo-dock/libcd-compiz-icon.so
@@ -621,36 +675,22 @@ and some basic Compiz actions.
 %package -n %{packagename}-showdesktop
 Summary: That package provides a showDesktop plugins
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-showdesktop
 This applet let you acces quickly to your desktop.
 
-%files -n %{packagename}-showdesktop -f cd-showDesktop.lang
+%files -n %{packagename}-showdesktop
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/showDesktop
 %{_libdir}/cairo-dock/libcd-showDesktop.so
-
-#---------------------------------------------------------------------
-%package -n %{packagename}-cpusage
-Summary: That package provides a cpusage plugins
-Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
-
-%description -n %{packagename}-cpusage
-The cpusage applet show you the mount of CPU that is currently used.
-
-%files -n %{packagename}-cpusage -f cd-cpusage.lang
-%defattr(-, root, root)
-%{_datadir}/cairo-dock/plug-ins/cpusage
-%{_libdir}/cairo-dock/libcd-cpusage.so
 
 #---------------------------------------------------------------------
 %if %mdkversion > 200800
 %package -n %{packagename}-gnome-integration
 Summary: That package provides a gnome-integration plugins
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-gnome-integration
 This applet provides functions for a better integration into GNOME.
@@ -658,35 +698,20 @@ This applet provides functions for a better integration into GNOME.
 %files -n %{packagename}-gnome-integration
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/gnome-integration
-%{_libdir}/cairo-dock/libcd-gnome-integration.so
+%{_libdir}/cairo-dock/libcd_gnome-integration.so
 %endif
-
-#---------------------------------------------------------------------
-%package -n %{packagename}-nvidia
-Summary: That package provides plugin "nVidia"
-Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
-
-%description -n %{packagename}-nvidia
-Manage your nVidia graphic card, check
-your GPU temp and everything else.
-
-%files -n %{packagename}-nvidia -f cd-nVidia.lang
-%defattr(-, root, root)
-%{_datadir}/cairo-dock/plug-ins/nVidia
-%{_libdir}/cairo-dock/libcd-nVidia.so
 
 #---------------------------------------------------------------------
 %package -n %{packagename}-clipper
 Summary: That package provides plugin "clipper"
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-clipper
 This applet keeps a trace of the clipboard and mouse selection, so that
 you can recall them quickly. It's a clone of the well-know Klipper.
 
-%files -n %{packagename}-clipper -f cd-Clipper.lang
+%files -n %{packagename}-clipper
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/Clipper
 %{_libdir}/cairo-dock/libcd-Clipper.so
@@ -695,12 +720,12 @@ you can recall them quickly. It's a clone of the well-know Klipper.
 %package -n %{packagename}-gmenu
 Summary: That package provides plugin "gmenu"
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-gmenu
 The new and soon wonderful GMenu applet
 
-%files -n %{packagename}-gmenu -f cd-GMenu.lang
+%files -n %{packagename}-gmenu
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/GMenu
 %{_libdir}/cairo-dock/libcd-GMenu.so
@@ -709,28 +734,26 @@ The new and soon wonderful GMenu applet
 %package -n %{packagename}-keyboard-indicator
 Summary: That package provides plugin "keyboard-indicator"
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-keyboard-indicator
 This applet lets you control the keyboard layout.
 
-%files -n %{packagename}-keyboard-indicator -f cd-keyboard-indicator.lang
+%files -n %{packagename}-keyboard-indicator
 %defattr(-, root, root)
-%{_datadir}/cairo-dock/plug-ins/icon.svg
-%{_datadir}/cairo-dock/plug-ins/keyboard-indicator.conf
-%{_datadir}/cairo-dock/plug-ins/preview.png
+%{_datadir}/cairo-dock/plug-ins/keyboard-indicator
 %{_libdir}/cairo-dock/libcd-keyboard-indicator.so
 
 #---------------------------------------------------------------------
 %package -n %{packagename}-weblets
 Summary: That package provides plugin "weblets"
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-weblets
 The weblets applet allows you to show an interactive web page on your desktop.
 
-%files -n %{packagename}-weblets -f cd-weblets.lang
+%files -n %{packagename}-weblets
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/weblets
 %{_libdir}/cairo-dock/libcd-weblets.so
@@ -758,49 +781,9 @@ autoreconf -fi
 rm -rf $RPM_BUILD_ROOT
 %makeinstall_std
 
-rm -f %buildroot%{_libdir}/cairo-dock/libcd-*.la
+rm -f %buildroot%{_libdir}/cairo-dock/*.la
 
-%find_lang cd-AlsaMixer
-%find_lang cd-Animated-icons
-%find_lang cd-Cairo-Penguin
-%find_lang cd-Clipper
-%find_lang cd-Dbus
-%find_lang cd-GMenu
-%find_lang cd-Toons
-%find_lang cd-Xgamma
-%find_lang cd-clock
-%find_lang cd-compiz-icon
-%find_lang cd-cpusage
-%find_lang cd-desklet-rendering
-%find_lang cd-dialog-rendering
-%find_lang cd-drop_indicator
-%find_lang cd-dustbin
-%find_lang cd-icon-effect
-%find_lang cd-illusion
-%find_lang cd-keyboard-indicator
-%find_lang cd-logout
-%find_lang cd-motion_blur
-%find_lang cd-nVidia
-%find_lang cd-netspeed
-%find_lang cd-powermanager
-%find_lang cd-quick-browser
-%find_lang cd-rame
-%find_lang cd-rendering
-%find_lang cd-rhythmbox
-%find_lang cd-shortcuts
-%find_lang cd-showDesklets
-%find_lang cd-showDesktop
-%find_lang cd-show_mouse
-%find_lang cd-slider
-%find_lang cd-stack
-%find_lang cd-switcher
-%find_lang cd-systray
-%find_lang cd-terminal
-%find_lang cd-tomboy
-%find_lang cd-weather
-%find_lang cd-weblets
-%find_lang cd-wifi
-%find_lang cd-xmms
+%find_lang %name
 
 %clean
 rm -rf $RPM_BUILD_ROOT
