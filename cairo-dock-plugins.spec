@@ -2,12 +2,12 @@
 
 Summary:	Plugins for cairo-dock
 Name:     	cairo-dock-plugins
-Version:	2.0.8.2
-Release:	%mkrel 2
+Version:	2.1.2
+Release:	%mkrel 1
 License:	GPLv3+
 Group:		Graphical desktop/Other
-Source0: 	http://download.berlios.de/cairo-dock/%name-%version.tar.bz2
-URL:		http://www.cairo-dock.org/
+Source0: 	http://launchpad.net/cairo-dock-plug-ins/2.1/%{version}/+download/%{name}-%{version}-4.tar.gz
+URL:		https://launchpad.net/cairo-dock-plug-ins
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Requires:	cairo-dock >= %version
 BuildRequires:	cairo-dock-devel >= %version
@@ -19,6 +19,7 @@ BuildRequires:	intltool
 BuildRequires:	gnutls-devel
 BuildRequires:	gnome-menus-devel
 BuildRequires:	libxklavier-devel
+BuildRequires:	libetpan-devel
 BuildRequires:	webkitgtk-devel
 Requires:	%{packagename}-clock
 Requires:	%{packagename}-dustbin
@@ -732,10 +733,9 @@ The weblets applet allows you to show an interactive web page on your desktop.
 
 #---------------------------------------------------------------------
 %prep
-%setup -q
+%setup -qn %{name}-%{version}-4
 
 %build
-autoreconf -fi
 %configure2_5x \
   --disable-old-gnome-integration \
   --enable-gnome-integration \
