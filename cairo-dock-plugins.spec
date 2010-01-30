@@ -7,6 +7,7 @@ Release:	%mkrel 1
 License:	GPLv3+
 Group:		Graphical desktop/Other
 Source0: 	http://launchpad.net/cairo-dock-plug-ins/2.1/%{version}/+download/%{name}-%{version}-4.tar.gz
+Patch0:		cairo-dock-plugins-2.1.2-desklets.patch
 URL:		https://launchpad.net/cairo-dock-plug-ins
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Requires:	cairo-dock >= %version
@@ -258,6 +259,7 @@ Parabolic and Rainbow views are provided
 %{_libdir}/cairo-dock/libcd-rendering.so
 
 #---------------------------------------------------------------------
+%if 0
 %package -n %{packagename}-rhythmbox
 Summary: That package provides plugin "rhythmbox"
 Group: Graphical desktop/Other
@@ -271,7 +273,7 @@ Play/pause with left click, next song with middle click.
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/rhythmbox
 %{_libdir}/cairo-dock/libcd-rhythmbox.so
-
+%endif
 #---------------------------------------------------------------------
 %package -n %{packagename}-terminal
 Summary: That package provides plugin "terminal"
@@ -494,6 +496,7 @@ the first active connection.
 %{_libdir}/cairo-dock/libcd-wifi.so
 
 #---------------------------------------------------------------------
+%if 0
 %package -n %{packagename}-xmms
 Summary: That package provides a xmms plugins
 Group: Graphical desktop/Other
@@ -509,7 +512,7 @@ You can Drag&Drop sonng to put them in the queue.
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/xmms
 %{_libdir}/cairo-dock/libcd-xmms.so
-
+%endif
 #---------------------------------------------------------------------
 %package -n %{packagename}-xfce-integration
 Summary: That package provides a xfce-integration plugins
@@ -522,7 +525,7 @@ This applet provides functions for a better integration into XFCE.
 %files -n %{packagename}-xfce-integration
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/xfce-integration
-%{_libdir}/cairo-dock/libcd-xfce-integration.so
+%{_libdir}/cairo-dock/libcd_xfce-integration.so
 
 #---------------------------------------------------------------------
 %package -n %{packagename}-tomboy
@@ -554,6 +557,7 @@ and make some stats on it.
 %{_libdir}/cairo-dock/libcd-netspeed.so
 
 #---------------------------------------------------------------------
+%if 0
 %package -n %{packagename}-rame
 Summary: That package provides a rame plugins
 Group: Graphical desktop/Other
@@ -567,7 +571,7 @@ that is currently used
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/rame
 %{_libdir}/cairo-dock/libcd-rame.so
-
+%endif
 #---------------------------------------------------------------------
 %package -n %{packagename}-switcher
 Summary: That package provides a switcher plugins
@@ -734,8 +738,10 @@ The weblets applet allows you to show an interactive web page on your desktop.
 #---------------------------------------------------------------------
 %prep
 %setup -qn %{name}-%{version}-4
+%patch0 -p0
 
 %build
+autoreconf -fi
 %configure2_5x \
   --disable-old-gnome-integration \
   --enable-gnome-integration \
@@ -743,7 +749,9 @@ The weblets applet allows you to show an interactive web page on your desktop.
   --enable-alsa-mixer \
   --enable-terminal \
   --enable-keyboard-indicator \
-  --enable-gio-in-gmenu
+  --enable-gio-in-gmenu \
+  --enable-show-desklets
+
 %make
 
 %install
