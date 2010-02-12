@@ -2,16 +2,16 @@
 
 Summary:	Plugins for cairo-dock
 Name:     	cairo-dock-plugins
-Version:	2.1.2
+Version:	2.1.3
 Release:	%mkrel 1
 License:	GPLv3+
 Group:		Graphical desktop/Other
-Source0: 	http://launchpad.net/cairo-dock-plug-ins/2.1/%{version}/+download/%{name}-%{version}-4.tar.gz
+Source0: 	http://launchpad.net/cairo-dock-plug-ins/2.1/%{version}/+download/%{name}-%{version}-2.tar.gz
 Patch0:		cairo-dock-plugins-2.1.2-desklets.patch
 URL:		https://launchpad.net/cairo-dock-plug-ins
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Requires:	cairo-dock >= %version
-BuildRequires:	cairo-dock-devel >= %version
+BuildRequires:	cairo-dock-devel >= %{version}
 BuildRequires:	glib2-devel
 BuildRequires:	vte-devel
 BuildRequires:	libalsa-devel
@@ -760,11 +760,11 @@ The weblets applet allows you to show an interactive web page on your desktop.
 
 #---------------------------------------------------------------------
 %prep
-%setup -qn %{name}-%{version}-4
-%patch0 -p0
+%setup -qn %{name}-%{version}-2
+#patch0 -p0
 
 %build
-autoreconf -fi
+#autoreconf -fi
 %configure2_5x \
   --disable-old-gnome-integration \
   --enable-gnome-integration \
@@ -772,8 +772,7 @@ autoreconf -fi
   --enable-alsa-mixer \
   --enable-terminal \
   --enable-keyboard-indicator \
-  --enable-gio-in-gmenu \
-  --enable-show-desklets
+  --enable-gio-in-gmenu
 
 %make
 
