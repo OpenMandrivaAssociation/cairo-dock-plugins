@@ -7,7 +7,6 @@ Release:	%mkrel 1
 License:	GPLv3+
 Group:		Graphical desktop/Other
 Source0: 	http://launchpad.net/cairo-dock-plug-ins/2.1/%{version}/+download/%{name}-%{version}-2.tar.gz
-Patch0:		cairo-dock-plugins-2.1.2-desklets.patch
 URL:		https://launchpad.net/cairo-dock-plug-ins
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Requires:	cairo-dock >= %version
@@ -36,7 +35,6 @@ Requires:	%{packagename}-xgamma
 Requires:	%{packagename}-alsamixer
 Requires:	%{packagename}-cairo-penguin
 Requires:	%{packagename}-tomboy
-Requires:	%{packagename}-showdesklets
 Requires:	%{packagename}-wifi
 Requires:	%{packagename}-netspeed
 Requires:	%{packagename}-switcher
@@ -63,6 +61,8 @@ Requires:	%{packagename}-weblets
 Requires:	%{packagename}-dnd2share
 Requires:	%{packagename}-kde-integration
 Requires:	%{packagename}-mail
+Requires:	%{packagename}-rssreader
+Obsoletes:	%{packagename}-showdesklets < 2.1.3
 
 %description
 cairo-dock uses cairo to render nice graphics, and Glitz to use hardware
@@ -502,23 +502,6 @@ Images are from Pingus, Inspiration is from xpenguins.
 %{_libdir}/cairo-dock/libcd-Cairo-Penguin.so
 
 #---------------------------------------------------------------------
-%package -n %{packagename}-showdesklets
-Summary: That package provides a showDesklets plugins
-Group: Graphical desktop/Other
-Requires: %{name}-i18n = %{version}
-
-%description -n %{packagename}-showdesklets
-This applet let you acces quickly to your desklets.
-Left click to show/hide your desklets.
-Basically, if you are under Compiz, you don't need this applet;
-you should just use the "Widgets Layer" copabilities of desklets.
-
-%files -n %{packagename}-showdesklets
-%defattr(-, root, root)
-%{_datadir}/cairo-dock/plug-ins/showDesklets
-%{_libdir}/cairo-dock/libcd-showDesklets.so
-
-#---------------------------------------------------------------------
 %package -n %{packagename}-slider
 Summary: That package provides a slider plugins
 Group: Graphical desktop/Other
@@ -759,12 +742,25 @@ The weblets applet allows you to show an interactive web page on your desktop.
 %{_libdir}/cairo-dock/libcd-weblets.so
 
 #---------------------------------------------------------------------
+%package -n %{packagename}-rssreader
+Summary: That package provides plugin "rssreader"
+Group: Graphical desktop/Other
+Requires: %{name}-i18n = %{version}
+
+%description -n %{packagename}-rssreader
+This applet is an RSS/Atom feed reader. You can instanciate it as many
+times as you want.
+
+%files -n %{packagename}-rssreader
+%defattr(-, root, root)
+%{_libdir}/cairo-dock/libcd-RSSreader.so
+%{_datadir}/cairo-dock/plug-ins/RSSreader
+
+#---------------------------------------------------------------------
 %prep
 %setup -qn %{name}-%{version}-2
-#patch0 -p0
 
 %build
-#autoreconf -fi
 %configure2_5x \
   --disable-old-gnome-integration \
   --enable-gnome-integration \
