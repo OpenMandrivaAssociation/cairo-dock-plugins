@@ -2,11 +2,12 @@
 
 Summary:	Plugins for cairo-dock
 Name:     	cairo-dock-plugins
-Version:	2.1.3
+Version:	2.2.0
 Release:	%mkrel 1
 License:	GPLv3+
 Group:		Graphical desktop/Other
-Source0: 	http://launchpad.net/cairo-dock-plug-ins/2.1/%{version}/+download/%{name}-%{version}-2.tar.gz
+Source0: 	http://launchpad.net/cairo-dock-plug-ins/2.2/%{version}/+download/%{name}-%{version}-4.tar.gz
+Patch0:		cairo-dock-plugins-2.2.0-link.patch
 URL:		https://launchpad.net/cairo-dock-plug-ins
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Requires:	cairo-dock >= %version
@@ -21,6 +22,10 @@ BuildRequires:	gnome-menus-devel
 BuildRequires:	libxklavier-devel
 BuildRequires:	libetpan-devel
 BuildRequires:	webkitgtk-devel
+BuildRequires:	libexif-devel
+BuildRequires:	libical-devel
+BuildRequires:	libxrandr-devel
+BuildRequires:	libxxf86vm-devel
 Requires:	%{packagename}-clock
 Requires:	%{packagename}-dustbin
 Requires:	%{packagename}-logout
@@ -62,6 +67,7 @@ Requires:	%{packagename}-dnd2share
 Requires:	%{packagename}-kde-integration
 Requires:	%{packagename}-mail
 Requires:	%{packagename}-rssreader
+Requires:	%{packagename}-Folders
 Obsoletes:	%{packagename}-showdesklets < 2.1.3
 
 %description
@@ -549,7 +555,7 @@ You can instanciate this applet several times to show different values each time
 %files -n %{packagename}-System-monitor
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/System-monitor
-%{_libdir}/cairo-dock/libcd-System-Monitor.so
+%{_libdir}/cairo-dock/libcd-system-monitor.so
 
 #---------------------------------------------------------------------
 %package -n %{packagename}-wifi
@@ -753,30 +759,35 @@ times as you want.
 
 %files -n %{packagename}-rssreader
 %defattr(-, root, root)
-%{_libdir}/cairo-dock/libcd-RSSreader.so
+%{_libdir}/cairo-dock/libcd-rssreader.so
 %{_datadir}/cairo-dock/plug-ins/RSSreader
 
 #---------------------------------------------------------------------
+%package -n %{packagename}-Folders
+Summary: That package provides plugin "Folders"
+Group: Graphical desktop/Other
+Requires: %{name}-i18n = %{version}
+
+%description -n %{packagename}-Folders
+This applet imports folders inside the Dock.
+
+%files -n %{packagename}-Folders
+%defattr(-, root, root)
+%{_libdir}/cairo-dock/libcd-Folders.so
+%{_datadir}/cairo-dock/plug-ins/Folders
+
+#---------------------------------------------------------------------
 %prep
-%setup -qn %{name}-%{version}-2
+%setup -qn %{name}-%{version}-4
+%patch0 -p0
 
 %build
-%configure2_5x \
-  --disable-old-gnome-integration \
-  --enable-gnome-integration \
-  --enable-xfce-integration \
-  --enable-alsa-mixer \
-  --enable-terminal \
-  --enable-keyboard-indicator \
-  --enable-gio-in-gmenu
-
+%cmake
 %make
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%makeinstall_std
-
-rm -f %buildroot%{_libdir}/cairo-dock/*.la
+%makeinstall_std -C build
 
 %find_lang %name
 
