@@ -12,6 +12,7 @@ URL:		https://launchpad.net/cairo-dock-plug-ins
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Requires:	cairo-dock >= %version
 BuildRequires:	cairo-dock-devel >= %{version}
+BuildRequires:	cmake
 BuildRequires:	glib2-devel
 BuildRequires:	vte-devel
 BuildRequires:	libalsa-devel
