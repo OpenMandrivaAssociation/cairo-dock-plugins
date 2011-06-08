@@ -7,7 +7,6 @@ Release:	%mkrel 1
 License:	GPLv3+
 Group:		Graphical desktop/Other
 Source0: 	http://launchpadlibrarian.net/70938279/%{name}-%{version}~2.tar.gz
-Patch0:		cairo-dock-plugins-2.2.0-link.patch
 URL:		https://launchpad.net/cairo-dock-plug-ins
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Requires:	cairo-dock = %version
@@ -69,6 +68,7 @@ Requires:	%{packagename}-kde-integration
 Requires:	%{packagename}-mail
 Requires:	%{packagename}-rssreader
 Requires:	%{packagename}-Folders
+Requires:	%{packagename}-remote-control
 Obsoletes:	%{packagename}-showdesklets < 2.1.3
 
 %description
@@ -778,8 +778,28 @@ This applet imports folders inside the Dock.
 %{_datadir}/cairo-dock/plug-ins/Folders
 
 #---------------------------------------------------------------------
+%package -n %{packagename}-remote-control
+Summary: That package provides plugin "remote-control"
+Group: Graphical desktop/Other
+Requires: %{name}-i18n = %{version}
+
+%description -n %{packagename}-remote-control
+This plug-in lets you control your dock from the keyboard or even
+a remote controller.
+
+%files -n %{packagename}-remote-control
+%defattr(-, root, root)
+%{_libdir}/cairo-dock/libcd-Remote-Control.so
+%{_datadir}/cairo-dock/plug-ins/Remote-Control
+
+#---------------------------------------------------------------------
 %prep
 %setup -qn %{name}-%{version}~2
+
+for i in */src/CMakeLists.txt
+do
+	sed -i -e 's/ SHARED/ MODULE /' $i
+done
 
 %build
 %cmake
