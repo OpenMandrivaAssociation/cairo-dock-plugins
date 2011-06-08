@@ -793,6 +793,20 @@ a remote controller.
 %{_datadir}/cairo-dock/plug-ins/Remote-Control
 
 #---------------------------------------------------------------------
+%package -n %{packagename}-vala
+Summary: This package provides vala binding for %{packagename}
+Group: Graphical desktop/Other
+
+%description -n %{packagename}-vala
+This package provides vala binding for %{packagename}.
+
+%files -n %{packagename}-vala
+%defattr(-, root, root)
+%{_libdir}/libCDApplet.so
+%{_libdir}/pkgconfig/CDApplet.pc
+%{_datadir}/vala*/vapi/CDApplet.*
+
+#---------------------------------------------------------------------
 %prep
 %setup -qn %{name}-%{version}~2
 
