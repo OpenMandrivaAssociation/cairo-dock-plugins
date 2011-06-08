@@ -2,16 +2,16 @@
 
 Summary:	Plugins for cairo-dock
 Name:     	cairo-dock-plugins
-Version:	2.2.0
+Version:	2.3.0
 Release:	%mkrel 1
 License:	GPLv3+
 Group:		Graphical desktop/Other
-Source0: 	http://launchpad.net/cairo-dock-plug-ins/2.2/%{version}/+download/%{name}-%{version}-4.tar.gz
+Source0: 	http://launchpadlibrarian.net/70938279/%{name}-%{version}~2.tar.gz
 Patch0:		cairo-dock-plugins-2.2.0-link.patch
 URL:		https://launchpad.net/cairo-dock-plug-ins
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-Requires:	cairo-dock >= %version
-BuildRequires:	cairo-dock-devel >= %{version}
+Requires:	cairo-dock = %version
+BuildRequires:	cairo-dock-devel = %{version}
 BuildRequires:	cmake
 BuildRequires:	glib2-devel
 BuildRequires:	vte-devel
@@ -779,8 +779,7 @@ This applet imports folders inside the Dock.
 
 #---------------------------------------------------------------------
 %prep
-%setup -qn %{name}-%{version}-4
-%patch0 -p0
+%setup -qn %{name}-%{version}~2
 
 %build
 %cmake
