@@ -2,19 +2,24 @@
 
 Summary:	Plugins for cairo-dock
 Name:     	cairo-dock-plugins
-Version:	2.3.0
-Release:	%mkrel 2
+Version:	2.4.0
+Release:	%mkrel 1
 License:	GPLv3+
 Group:		Graphical desktop/Other
 Source0: 	http://launchpadlibrarian.net/70938279/%{name}-%{version}~2.tar.gz
 URL:		https://launchpad.net/cairo-dock-plug-ins
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-Requires:	cairo-dock = %version
+Requires:	cairo-dock = %{version}
 BuildRequires:	cairo-dock-devel = %{version}
 BuildRequires:	cmake
 BuildRequires:	glib2-devel
+BuildRequires:	libdbus-1-devel
+BuildRequires:	dbus-glib-devel
 BuildRequires:	vte-devel
+BuildRequires:	fftw3-devel
+BuildRequires:	pulseaudio-devel
 BuildRequires:	libalsa-devel
+BuildRequires:	cairo-devel
 BuildRequires:	thunar-devel
 BuildRequires:	intltool
 BuildRequires:	gnutls-devel
@@ -26,6 +31,17 @@ BuildRequires:	libexif-devel
 BuildRequires:	libical-devel
 BuildRequires:	libxrandr-devel
 BuildRequires:	libxxf86vm-devel
+BuildRequires:	libetpan-devel
+BuildRequires:	lm_sensors-devel
+BuildRequires:	glib-sharp2
+BuildRequires:	ruby
+BuildRequires:	UPower-devel
+BuildRequires:	libdbusmenu-gtk-devel
+%if %mdkversion >= 201100
+BuildRequires:	ndesk-dbus-glib-devel
+BuildRequires:	zeitgeist-devel
+BuildRequires:	vala
+%endif
 Requires:	%{packagename}-clock
 Requires:	%{packagename}-dustbin
 Requires:	%{packagename}-logout
@@ -44,13 +60,11 @@ Requires:	%{packagename}-wifi
 Requires:	%{packagename}-netspeed
 Requires:	%{packagename}-switcher
 Requires:	%{packagename}-dbus
-Requires:	%{packagename}-compiz-icon
 Requires:	%{packagename}-showdesktop
 Requires:	%{packagename}-slider
 Requires:	%{packagename}-stack
 Requires:	%{packagename}-System-monitor
 Requires:	%{packagename}-clipper
-Requires:	%{packagename}-gmenu
 Requires:	%{packagename}-animated-icons
 Requires:	%{packagename}-desklet-rendering
 Requires:	%{packagename}-dialog-rendering
@@ -67,8 +81,10 @@ Requires:	%{packagename}-dnd2share
 Requires:	%{packagename}-kde-integration
 Requires:	%{packagename}-mail
 Requires:	%{packagename}-rssreader
+Requires:	%{packagename}-impulse
 Requires:	%{packagename}-Folders
 Requires:	%{packagename}-remote-control
+Requires:	%{packagename}-composite-manager
 Obsoletes:	%{packagename}-showdesklets < 2.1.3
 
 %description
@@ -83,14 +99,14 @@ This package contains various plugins for cairo-dock.
 
 #---------------------------------------------------------------------
 %package i18n
-Summary: Translation files for %name
+Summary: Translation files for %{name}
 Group: Graphical desktop/Other
 Requires: %{packagename} = %{version}
 
 %description i18n
 This package contains common translations for %{name}.
 
-%files i18n -f %name.lang
+%files i18n -f %{name}.lang
 %defattr(-, root, root)
 
 #---------------------------------------------------------------------
@@ -385,6 +401,7 @@ It works with ACPI and DBus.
 Summary: That package provides a shortcuts plugins
 Group: Graphical desktop/Other
 Requires: %{name}-i18n = %{version}
+Requires: %{packagename}-shared-images = %{version}
 
 %description -n %{packagename}-shortcuts
 An applets thatlet you acces quickly to all of your shortcuts.
@@ -646,26 +663,33 @@ The communication between both sides is based on Dbus.
 %{_libdir}/cairo-dock/libcd-Dbus.so
 
 #---------------------------------------------------------------------
-%package -n %{packagename}-compiz-icon
-Summary: That package provides a Compiz-Icon plugins
-Group: Graphical desktop/Other
-Requires: %{name}-i18n = %{version}
+%if %mdkversion >= 201100
+%package -n %{packagename}-recent-events
+Summary:     Recent-Events applet based on Zeitgeist framework
+Group:       Graphical desktop/Other
+Requires:    %{name}-i18n = %{version}
 
-%description -n %{packagename}-compiz-icon
-The compiz-icon applet allow you to menage compiz and oher
-windows manager. The sub-dock gives you acces to CCSM, Emerld
-and some basic Compiz actions.
+%description -n %{packagename}-recent-events
+This applet is an quite complex and Gnome Activity Journal like.
+Features:
+* you can browse recent tracked events by categories (All,
+  Document, Folder, Image, Audioa, Video, Other, Top Results)
+* you can look for events (search through it and delete the searched item)
+* the tracked items have thumbnails
+* huge list of recent items
 
-%files -n %{packagename}-compiz-icon
+%files -n %{packagename}-recent-events
 %defattr(-, root, root)
-%{_datadir}/cairo-dock/plug-ins/compiz-icon
-%{_libdir}/cairo-dock/libcd-compiz-icon.so
+%{_libdir}/cairo-dock/libcd-Recent-Events.so
+%{_datadir}/cairo-dock/plug-ins/Recent-Events/*
+%endif
 
 #---------------------------------------------------------------------
 %package -n %{packagename}-showdesktop
 Summary: That package provides a showDesktop plugins
 Group: Graphical desktop/Other
 Requires: %{name}-i18n = %{version}
+Requires: %{packagename}-shared-images = %{version}
 
 %description -n %{packagename}-showdesktop
 This applet let you acces quickly to your desktop.
@@ -705,20 +729,6 @@ you can recall them quickly. It's a clone of the well-know Klipper.
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/Clipper
 %{_libdir}/cairo-dock/libcd-Clipper.so
-
-#---------------------------------------------------------------------
-%package -n %{packagename}-gmenu
-Summary: That package provides plugin "gmenu"
-Group: Graphical desktop/Other
-Requires: %{name}-i18n = %{version}
-
-%description -n %{packagename}-gmenu
-The new and soon wonderful GMenu applet
-
-%files -n %{packagename}-gmenu
-%defattr(-, root, root)
-%{_datadir}/cairo-dock/plug-ins/GMenu
-%{_libdir}/cairo-dock/libcd-GMenu.so
 
 #---------------------------------------------------------------------
 %package -n %{packagename}-keyboard-indicator
@@ -809,6 +819,78 @@ This package provides vala binding for %{packagename}.
 %endif
 
 #---------------------------------------------------------------------
+%package -n %{packagename}-shared-images
+Summary: Shared images for plugins
+Group: Graphical desktop/Other
+
+%description -n %{packagename}-shared-images
+This package provides shared images for plugins.
+
+%files -n %{packagename}-shared-images
+%defattr(-, root, root)
+%{_datadir}/cairo-dock/plug-ins/shared-images
+
+#---------------------------------------------------------------------
+%package -n %{packagename}-composite-manager
+Summary: That package provides plugin "composite-manager"
+Group: Graphical desktop/Other
+Requires: %{name}-i18n = %{version}
+Requires: %{packagename}-shared-images = %{version}
+
+%description -n %{packagename}-composite-manager
+This applet allows you to toggle the composite ON/OFF.
+
+%files -n %{packagename}-composite-manager
+%defattr(-, root, root)
+%{_datadir}/cairo-dock/plug-ins/Composite-Manager
+%{_libdir}/cairo-dock/libcd-Composite-Manager.so
+#---------------------------------------------------------------------
+
+%package -n %{packagename}-status-notifier
+Summary:    That package provides plugin "status-notifier"
+Group:      Graphical desktop/Other
+Requires:   %{name}-i18n = %{version}
+
+%description -n %{packagename}-status-notifier
+This package provides plugin Status Notifier for %{packagename}.
+
+%files -n %{packagename}-status-notifier
+%defattr(-, root, root)
+%{_libdir}/cairo-dock/libcd-status-notifier.so
+#%{_libdir}/cli/CDApplet.dll
+%{ruby_libdir}/CDApplet.rb
+%{_datadir}/cairo-dock/plug-ins/Status-Notifier
+%{_libdir}/cairo-dock/status-notifier-watcher
+
+#---------------------------------------------------------------------
+%package -n %{packagename}-gmenu
+Summary: That package provides plugin "gmenu"
+Group: Graphical desktop/Other
+Requires: %{name}-i18n = %{version}
+
+%description -n %{packagename}-gmenu
+The new and soon wonderful GMenu applet
+
+%files -n %{packagename}-gmenu
+%defattr(-, root, root)
+%{_datadir}/cairo-dock/plug-ins/GMenu
+%{_libdir}/cairo-dock/libcd-GMenu.so
+#---------------------------------------------------------------------
+%package -n %{packagename}-impulse
+Summary: That package provides plugin "impulse"
+Group: Graphical desktop/Other
+Requires: %{name}-i18n = %{version}
+
+%description -n %{packagename}-impulse
+Graphical equalizer in the dock depending on the signal given by PulseAudio.
+
+%files -n %{packagename}-impulse
+%defattr(-, root, root)
+%{_datadir}/cairo-dock/plug-ins/Impulse
+%{_libdir}/cairo-dock/libcd-Impulse.so
+#---------------------------------------------------------------------
+
+
 %prep
 %setup -qn %{name}-%{version}~2
 
@@ -822,10 +904,11 @@ done
 %make
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 %makeinstall_std -C build
+rm -f %{buildroot}/usr/lib/cli/CDApplet.dll
 
-%find_lang %name
+%find_lang %{name}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
