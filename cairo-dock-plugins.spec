@@ -12,34 +12,33 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Requires:	cairo-dock = %{version}
 BuildRequires:	cairo-dock-devel = %{version}
 BuildRequires:	cmake
-BuildRequires:	glib2-devel
-BuildRequires:	libdbus-1-devel
-BuildRequires:	dbus-glib-devel
-BuildRequires:	vte-devel
-BuildRequires:	fftw3-devel
-BuildRequires:	pulseaudio-devel
-BuildRequires:	libalsa-devel
-BuildRequires:	cairo-devel
-BuildRequires:	thunar-devel
+BuildRequires:	pkgconfig(glib-2.0)
+BuildRequires:	pkgconfig(dbus-1)
+BuildRequires:	pkgconfig(dbus-glib-1)
+BuildRequires:	pkgconfig(vte)
+BuildRequires:	pkgconfig(fftw3)
+BuildRequires:	pkgconfig(libpulse)
+BuildRequires:	pkgconfig(alsa)
+BuildRequires:	pkgconfig(cairo)
+BuildRequires:	pkgconfig(thunarx-2)
 BuildRequires:	intltool
-BuildRequires:	gnutls-devel
-BuildRequires:	gnome-menus-devel
-BuildRequires:	libxklavier-devel
+BuildRequires:	pkgconfig(gnutls)
+BuildRequires:	pkgconfig(libgnome-menu-3.0)
+BuildRequires:	pkgconfig(libxklavier)
 BuildRequires:	libetpan-devel
-BuildRequires:	webkitgtk-devel
-BuildRequires:	libexif-devel
-BuildRequires:	libical-devel
-BuildRequires:	libxrandr-devel
-BuildRequires:	libxxf86vm-devel
-BuildRequires:	libetpan-devel
+BuildRequires:	pkgconfig(webkit-1.0)
+BuildRequires:	pkgconfig(libexif)
+BuildRequires:	pkgconfig(libical)
+BuildRequires:	pkgconfig(xrandr)
+BuildRequires:	pkgconfig(xxf86vm)
 BuildRequires:	lm_sensors-devel
 BuildRequires:	glib-sharp2
 BuildRequires:	ruby
 BuildRequires:	UPower-devel
-BuildRequires:	libdbusmenu-gtk-devel
+BuildRequires:	pkgconfig(dbusmenu-gtk3-0.4)
 %if %mdkversion >= 201100
-BuildRequires:	ndesk-dbus-glib-devel
-BuildRequires:	zeitgeist-devel
+BuildRequires:	pkgconfig(ndesk-dbus-glib-1.0)
+BuildRequires:	pkgconfig(zeitgeist-1.0)
 BuildRequires:	vala
 %endif
 Requires:	%{packagename}-clock
