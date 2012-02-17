@@ -7,6 +7,7 @@ Release:	2
 License:	GPLv3+
 Group:		Graphical desktop/Other
 Source0: 	http://launchpadlibrarian.net/70938279/%{name}-%{version}~2.tar.gz
+Patch0:		cairo-dock-plugins-2.4.0-ruby-install-dir-fix.patch
 URL:		https://launchpad.net/cairo-dock-plug-ins
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Requires:	cairo-dock = %{version}
@@ -892,6 +893,7 @@ Graphical equalizer in the dock depending on the signal given by PulseAudio.
 
 %prep
 %setup -qn %{name}-%{version}~2
+%patch0 -p0 -b .ruby_path~
 
 for i in */src/CMakeLists.txt
 do
