@@ -25,7 +25,7 @@ BuildRequires:	pkgconfig(cairo)
 BuildRequires:	pkgconfig(thunarx-2)
 BuildRequires:	intltool
 BuildRequires:	pkgconfig(gnutls)
-BuildRequires:	pkgconfig(libgnome-menu-3.0)
+BuildRequires:	pkgconfig(libgnome-menu)
 BuildRequires:	pkgconfig(libxklavier)
 BuildRequires:	libetpan-devel
 BuildRequires:	pkgconfig(webkit-1.0)
