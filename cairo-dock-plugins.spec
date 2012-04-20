@@ -2,22 +2,21 @@
 
 Summary:	Plugins for cairo-dock
 Name:     	cairo-dock-plugins
-Version:	2.4.0
+Version:	3.0.0
 Release:	2
 License:	GPLv3+
 Group:		Graphical desktop/Other
-Source0: 	http://launchpadlibrarian.net/70938279/%{name}-%{version}~2.tar.gz
+Source0: 	https://launchpad.net/cairo-dock-plug-ins/3.0/%{version}/+download/%{name}-%{version}.tar.gz
 Patch0:		cairo-dock-plugins-2.4.0-ruby-install-dir-fix.patch
 Patch1:		cairo-dock-plugins-2.4.0-dbusmenu-update-variables.patch
 URL:		https://launchpad.net/cairo-dock-plug-ins
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Requires:	cairo-dock = %{version}
 BuildRequires:	cairo-dock-devel = %{version}
 BuildRequires:	cmake
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(dbus-1)
 BuildRequires:	pkgconfig(dbus-glib-1)
-BuildRequires:	pkgconfig(vte)
+BuildRequires:	pkgconfig(vte-2.90)
 BuildRequires:	pkgconfig(fftw3)
 BuildRequires:	pkgconfig(libpulse)
 BuildRequires:	pkgconfig(alsa)
@@ -28,7 +27,7 @@ BuildRequires:	pkgconfig(gnutls)
 BuildRequires:	pkgconfig(libgnome-menu)
 BuildRequires:	pkgconfig(libxklavier)
 BuildRequires:	libetpan-devel
-BuildRequires:	pkgconfig(webkit-1.0)
+BuildRequires:	pkgconfig(webkitgtk-3.0)
 BuildRequires:	pkgconfig(libexif)
 BuildRequires:	pkgconfig(libical)
 BuildRequires:	pkgconfig(xrandr)
@@ -396,13 +395,15 @@ It works with ACPI and DBus.
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/powermanager
 %{_libdir}/cairo-dock/libcd-powermanager.so
+%{_datadir}/cairo-dock/gauges/Battery
+%{_datadir}/cairo-dock/gauges/Battery-Mono
 
 #---------------------------------------------------------------------
 %package -n %{packagename}-shortcuts
 Summary: That package provides a shortcuts plugins
 Group: Graphical desktop/Other
 Requires: %{name}-i18n = %{version}
-Requires: %{packagename}-shared-images = %{version}
+Requires: %{packagename}-shared-files = %{version}
 
 %description -n %{packagename}-shortcuts
 An applets thatlet you acces quickly to all of your shortcuts.
@@ -509,6 +510,7 @@ the Alsa sound drivers.
 %defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/AlsaMixer
 %{_libdir}/cairo-dock/libcd-AlsaMixer.so
+%{_datadir}/cairo-dock/gauges/Sound-Mono
 
 #---------------------------------------------------------------------
 %package -n %{packagename}-cairo-penguin
@@ -690,7 +692,7 @@ Features:
 Summary: That package provides a showDesktop plugins
 Group: Graphical desktop/Other
 Requires: %{name}-i18n = %{version}
-Requires: %{packagename}-shared-images = %{version}
+Requires: %{packagename}-shared-files = %{version}
 
 %description -n %{packagename}-showdesktop
 This applet let you acces quickly to your desktop.
@@ -820,23 +822,24 @@ This package provides vala binding for %{packagename}.
 %endif
 
 #---------------------------------------------------------------------
-%package -n %{packagename}-shared-images
+%package -n %{packagename}-shared-files
 Summary: Shared images for plugins
 Group: Graphical desktop/Other
+Obsoletes: %{packagename}-shared-images < %{version}
 
-%description -n %{packagename}-shared-images
-This package provides shared images for plugins.
+%description -n %{packagename}-shared-files
+This package provides shared files for plugins.
 
-%files -n %{packagename}-shared-images
+%files -n %{packagename}-shared-files
 %defattr(-, root, root)
-%{_datadir}/cairo-dock/plug-ins/shared-images
+%{_datadir}/cairo-dock/plug-ins/shared-files
 
 #---------------------------------------------------------------------
 %package -n %{packagename}-composite-manager
 Summary: That package provides plugin "composite-manager"
 Group: Graphical desktop/Other
 Requires: %{name}-i18n = %{version}
-Requires: %{packagename}-shared-images = %{version}
+Requires: %{packagename}-shared-files = %{version}
 
 %description -n %{packagename}-composite-manager
 This applet allows you to toggle the composite ON/OFF.
@@ -893,9 +896,8 @@ Graphical equalizer in the dock depending on the signal given by PulseAudio.
 
 
 %prep
-%setup -qn %{name}-%{version}~2
+%setup -qn %{name}-%{version}
 %patch0 -p1 -b .ruby_path~
-%patch1 -p1 -b .dbusmenu~
 
 for i in */src/CMakeLists.txt
 do
@@ -907,11 +909,7 @@ done
 %make
 
 %install
-rm -rf %{buildroot}
 %makeinstall_std -C build
-rm -f %{buildroot}/usr/lib/cli/CDApplet.dll
+rm -f %{buildroot}/usr/lib/cli/cairo-dock-plug-ins/CDApplet.dll
 
 %find_lang %{name}
-
-%clean
-rm -rf %{buildroot}
