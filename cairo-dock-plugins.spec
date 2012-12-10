@@ -2,46 +2,53 @@
 
 Summary:	Plugins for cairo-dock
 Name:     	cairo-dock-plugins
-Version:	3.0.0
-Release:	2
+Version:	3.1.0
+Release:	%mkrel 1
 License:	GPLv3+
 Group:		Graphical desktop/Other
-Source0: 	https://launchpad.net/cairo-dock-plug-ins/3.0/%{version}/+download/%{name}-%{version}.tar.gz
-Patch0:		cairo-dock-plugins-2.4.0-ruby-install-dir-fix.patch
-Patch1:		cairo-dock-plugins-2.4.0-dbusmenu-update-variables.patch
+Source0: 	http://launchpad.net/cairo-dock-plug-ins/3.1/%{version}/+download/cairo-dock-plugins-%{version}.tar.gz
+# From Arch Linux:
+Patch0:		cairo-dock-plugins-3.0.2-applet-host-ias.patch
 URL:		https://launchpad.net/cairo-dock-plug-ins
-Requires:	cairo-dock = %{version}
+Requires:	cairo-dock >= %version
 BuildRequires:	cairo-dock-devel = %{version}
 BuildRequires:	cmake
-BuildRequires:	pkgconfig(glib-2.0)
-BuildRequires:	pkgconfig(dbus-1)
-BuildRequires:	pkgconfig(dbus-glib-1)
-BuildRequires:	pkgconfig(vte-2.90)
-BuildRequires:	pkgconfig(fftw3)
-BuildRequires:	pkgconfig(libpulse)
 BuildRequires:	pkgconfig(alsa)
 BuildRequires:	pkgconfig(cairo)
-BuildRequires:	pkgconfig(thunarx-2)
-BuildRequires:	intltool
-BuildRequires:	pkgconfig(gnutls)
-BuildRequires:	pkgconfig(libgnome-menu)
-BuildRequires:	pkgconfig(libxklavier)
-BuildRequires:	libetpan-devel
-BuildRequires:	pkgconfig(webkitgtk-3.0)
-BuildRequires:	pkgconfig(libexif)
-BuildRequires:	pkgconfig(libical)
-BuildRequires:	pkgconfig(xrandr)
-BuildRequires:	pkgconfig(xxf86vm)
-BuildRequires:	lm_sensors-devel
-BuildRequires:	glib-sharp2
-BuildRequires:	ruby
-BuildRequires:	UPower-devel
+BuildRequires:	pkgconfig(dbus-1)
+BuildRequires:	pkgconfig(dbus-glib-1)
 BuildRequires:	pkgconfig(dbusmenu-gtk3-0.4)
-%if %mdkversion >= 201100
+BuildRequires:	pkgconfig(fftw3)
+BuildRequires:	pkgconfig(gio-2.0)
+BuildRequires:	pkgconfig(gldi)
+BuildRequires:	pkgconfig(glib-2.0)
+BuildRequires:	pkgconfig(glib-sharp-2.0)
+BuildRequires:	pkgconfig(gobject-2.0)
+BuildRequires:	pkgconfig(gthread-2.0)
+BuildRequires:	pkgconfig(gtk+-3.0)
+BuildRequires:	pkgconfig(libexif)
+#disabled until cairo-dock-plugins builds successfully with libgnome-menu-3.0
+#BuildRequires:	pkgconfig(libgnome-menu-3.0)
+BuildRequires:	pkgconfig(libical)
+BuildRequires:	pkgconfig(libpulse)
+BuildRequires:	pkgconfig(librsvg-2.0)
+BuildRequires:	pkgconfig(libxklavier)
+BuildRequires:	pkgconfig(libxml-2.0)
+BuildRequires:	pkgconfig(ndesk-dbus-1.0)
 BuildRequires:	pkgconfig(ndesk-dbus-glib-1.0)
+BuildRequires:	pkgconfig(thunar-vfs-1)
+BuildRequires:	pkgconfig(upower-glib)
+BuildRequires:	pkgconfig(vte-2.90)
+BuildRequires:	pkgconfig(webkitgtk-3.0)
+BuildRequires:	pkgconfig(x11)
+BuildRequires:	pkgconfig(xxf86vm)
+BuildRequires:	pkgconfig(xrandr)
 BuildRequires:	pkgconfig(zeitgeist-1.0)
 BuildRequires:	vala
-%endif
+BuildRequires:	ruby
+BuildRequires:	libetpan-devel
+BuildRequires:	lm_sensors-devel
+
 Requires:	%{packagename}-clock
 Requires:	%{packagename}-dustbin
 Requires:	%{packagename}-logout
@@ -74,6 +81,7 @@ Requires:	%{packagename}-illusion
 Requires:	%{packagename}-motion_blur
 Requires:	%{packagename}-quick-browser
 Requires:	%{packagename}-show_mouse
+Requires:	%{packagename}-status-notifier
 Requires:	%{packagename}-toons
 Requires:	%{packagename}-keyboard-indicator
 Requires:	%{packagename}-weblets
@@ -81,7 +89,6 @@ Requires:	%{packagename}-dnd2share
 Requires:	%{packagename}-kde-integration
 Requires:	%{packagename}-mail
 Requires:	%{packagename}-rssreader
-Requires:	%{packagename}-impulse
 Requires:	%{packagename}-Folders
 Requires:	%{packagename}-remote-control
 Requires:	%{packagename}-composite-manager
@@ -95,19 +102,17 @@ easily plug applets into it.
 This package contains various plugins for cairo-dock.
 
 %files
-%defattr(-, root, root)
 
 #---------------------------------------------------------------------
 %package i18n
-Summary: Translation files for %{name}
+Summary: Translation files for %name
 Group: Graphical desktop/Other
-Requires: %{packagename} = %{version}
+Requires: %{packagename} >= %{version}
 
 %description i18n
 This package contains common translations for %{name}.
 
-%files i18n -f %{name}.lang
-%defattr(-, root, root)
+%files i18n -f %name.lang
 
 #---------------------------------------------------------------------
 %package -n %{packagename}-animated-icons
@@ -119,7 +124,6 @@ Requires: %{name}-i18n = %{version}
 This plug-in provides many different animations for your icons.
 
 %files -n %{packagename}-animated-icons
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/Animated-icons
 %{_libdir}/cairo-dock/libcd-Animated-icons.so
 
@@ -130,16 +134,29 @@ Group: Graphical desktop/Other
 Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-clock
-Display rime and date in your dock with the clock applet!
+Display time and date in your dock with the clock applet!
 2 view are available: numeric and analogic.
 It can derach itself to be the perfect clone of CairoClock.
 It can warn you with alarms, can display a calendar, and
 allow you to setup time and date.
 
 %files -n %{packagename}-clock
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/clock
 %{_libdir}/cairo-dock/libcd-clock.so
+
+#---------------------------------------------------------------------
+%package -n %{packagename}-composite-manager
+Summary: That package provides plugin "composite-manager"
+Group: Graphical desktop/Other
+Requires: %{name}-i18n = %{version}
+Requires: %{packagename}-shared-files = %{version}
+
+%description -n %{packagename}-composite-manager
+This applet allows you to toggle the composite ON/OFF.
+
+%files -n %{packagename}-composite-manager
+%{_datadir}/cairo-dock/plug-ins/Composite-Manager
+%{_libdir}/cairo-dock/libcd-Composite-Manager.so
 
 #---------------------------------------------------------------------
 %package -n %{packagename}-desklet-rendering
@@ -151,7 +168,6 @@ Requires: %{name}-i18n = %{version}
 This module provides different views for your desklets.
 
 %files -n %{packagename}-desklet-rendering
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/desklet-rendering
 %{_libdir}/cairo-dock/libcd-desklet-rendering.so
 
@@ -165,7 +181,6 @@ Requires: %{name}-i18n = %{version}
 This plug-in provides some dialog decorators for dialog bubbles.
 
 %files -n %{packagename}-dialog-rendering
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/dialog-rendering
 %{_libdir}/cairo-dock/libcd-dialog-rendering.so
 
@@ -185,7 +200,6 @@ It can keep an history of your last uploads to retrieve them without any account
 You'll need to install 'curl' and 'wget' to upload the data.
 
 %files -n %{packagename}-dnd2share
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/dnd2share
 %{_libdir}/cairo-dock/libcd-dnd2share.so
 
@@ -199,7 +213,6 @@ Requires: %{name}-i18n = %{version}
 This plug-in displays an animated indicator when you drop something in the dock.
 
 %files -n %{packagename}-drop_indicator
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/drop-indicator
 %{_libdir}/cairo-dock/libcd-drop_indicator.so
 
@@ -217,7 +230,6 @@ warn you if you use too much space,
 and display usefull info about your dustbins.
 
 %files -n %{packagename}-dustbin
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/dustbin
 %{_libdir}/cairo-dock/libcd-dustbin.so
 
@@ -231,7 +243,6 @@ Requires: %{name}-i18n = %{version}
 This plug-in adds many special effects to your icons.
 
 %files -n %{packagename}-icon-effect
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/icon-effect
 %{_libdir}/cairo-dock/libcd-icon-effect.so
 
@@ -245,7 +256,6 @@ Requires: %{name}-i18n = %{version}
 This plug-in provides animations for appearance & disappearance of icons.
 
 %files -n %{packagename}-illusion
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/illusion
 %{_libdir}/cairo-dock/libcd-illusion.so
 
@@ -261,7 +271,6 @@ It is auto-activated, so you don't need to activate it.
 It is designed for KDE4.
 
 %files -n %{packagename}-kde-integration
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/kde-integration
 %{_libdir}/cairo-dock/libcd_kde-integration.so
 
@@ -276,7 +285,6 @@ A very simple applet that adds an icon to log out
 from your session.
 
 %files -n %{packagename}-logout
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/logout
 %{_libdir}/cairo-dock/libcd-logout.so
 
@@ -293,7 +301,6 @@ Left-click to launch the prefered mail application,
 Middle-click to refresh all the mailboxes.
 
 %files -n %{packagename}-mail
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/mail
 %{_libdir}/cairo-dock/libcd-mail.so
 
@@ -307,7 +314,6 @@ Requires: %{name}-i18n = %{version}
 This plug-in adds a motion blur effect on docks.
 
 %files -n %{packagename}-motion_blur
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/motion-blur
 %{_libdir}/cairo-dock/libcd-motion_blur.so
 
@@ -326,7 +332,6 @@ to play previous/next song. You can drag and drop songs on the icon to
 put them in the queue,and jpeg image to use as cover.
 
 %files -n %{packagename}-musicPlayer
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/musicPlayer
 %{_libdir}/cairo-dock/libcd-musicPlayer.so
 
@@ -344,7 +349,6 @@ This applet can be instanciated several times, if you want to browse
 different folders.
 
 %files -n %{packagename}-quick-browser
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/quick_browser
 %{_libdir}/cairo-dock/libcd-quick-browser.so
 
@@ -361,7 +365,6 @@ view of your choice. Currently, 3D-plane, Caroussel,
 Parabolic and Rainbow views are provided
 
 %files -n %{packagename}-rendering
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/rendering
 %{_libdir}/cairo-dock/libcd-rendering.so
 
@@ -377,7 +380,6 @@ You can drag'n'drop files or text into it
 and select an action
 
 %files -n %{packagename}-terminal
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/terminal
 %{_libdir}/cairo-dock/libcd-terminal.so
 
@@ -392,18 +394,28 @@ A power manager for laptop's battery
 It works with ACPI and DBus.
 
 %files -n %{packagename}-powermanager
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/powermanager
 %{_libdir}/cairo-dock/libcd-powermanager.so
-%{_datadir}/cairo-dock/gauges/Battery
 %{_datadir}/cairo-dock/gauges/Battery-Mono
+%{_datadir}/cairo-dock/gauges/Battery
+
+ #---------------------------------------------------------------------
+%package -n %{packagename}-shared-files
+Summary: Shared files for plugins
+Group: Graphical desktop/Other
+Obsoletes: %{packagename}-shared-images < %{version}
+
+%description -n %{packagename}-shared-files
+This package provides shared files for plugins.
+
+%files -n %{packagename}-shared-files
+%{_datadir}/cairo-dock/plug-ins/shared-files
 
 #---------------------------------------------------------------------
 %package -n %{packagename}-shortcuts
 Summary: That package provides a shortcuts plugins
 Group: Graphical desktop/Other
 Requires: %{name}-i18n = %{version}
-Requires: %{packagename}-shared-files = %{version}
 
 %description -n %{packagename}-shortcuts
 An applets thatlet you acces quickly to all of your shortcuts.
@@ -412,7 +424,6 @@ You can add or remove bookmarks bye drag'n'drop, even if you
 don't have Nautilus. Middle-click to acces your desktop easily
 
 %files -n %{packagename}-shortcuts
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/shortcuts
 %{_libdir}/cairo-dock/libcd-shortcuts.so
 
@@ -427,7 +438,6 @@ This plug-in draw some animation around the cursor when it's inside a dock
 desklet.
 
 %files -n %{packagename}-show_mouse
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/show_mouse
 %{_libdir}/cairo-dock/libcd-show_mouse.so
 
@@ -441,7 +451,6 @@ Requires: %{name}-i18n = %{version}
 Add a systray to your dock!
 
 %files -n %{packagename}-systray
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/systray
 %{_libdir}/cairo-dock/libcd-systray.so
 
@@ -456,7 +465,6 @@ This plug-in draw some animation around the cursor when it's inside a dock
 desklet.
 
 %files -n %{packagename}-toons
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/Toons
 %{_libdir}/cairo-dock/libcd-Toons.so
 
@@ -473,7 +481,6 @@ You can have many valuable info by (middle) clicking on
 the icons. Data are provided by www.weather.com
 
 %files -n %{packagename}-weather
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/weather
 %{_libdir}/cairo-dock/libcd-weather.so
 
@@ -489,7 +496,6 @@ It is a simple port of xgamma. Quickly setup gamma with
 left click, or more accurately with middle click.
 
 %files -n %{packagename}-xgamma
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/Xgamma
 %{_libdir}/cairo-dock/libcd-Xgamma.so
 
@@ -507,7 +513,6 @@ Middle-click to set or unset mute. This applet works with
 the Alsa sound drivers.
 
 %files -n %{packagename}-alsamixer
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/AlsaMixer
 %{_libdir}/cairo-dock/libcd-AlsaMixer.so
 %{_datadir}/cairo-dock/gauges/Sound-Mono
@@ -524,7 +529,6 @@ right click to disturb him ^_^.
 Images are from Pingus, Inspiration is from xpenguins.
 
 %files -n %{packagename}-cairo-penguin
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/Cairo-Penguin
 %{_libdir}/cairo-dock/libcd-Cairo-Penguin.so
 
@@ -538,7 +542,6 @@ Requires: %{name}-i18n = %{version}
 The slider applet is a basic image slider.
 
 %files -n %{packagename}-slider
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/slider
 %{_libdir}/cairo-dock/libcd-slider.so
 
@@ -554,7 +557,6 @@ applet of MacOS X. Items can be files, folders, URL, or even pieces of
 text.
 
 %files -n %{packagename}-stack
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/stack
 %{_libdir}/cairo-dock/libcd-stack.so
 
@@ -574,7 +576,6 @@ Left click on the icon to get a list of the most ressources using programs.
 You can instanciate this applet several times to show different values each time.
 
 %files -n %{packagename}-System-monitor
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/System-monitor
 %{_libdir}/cairo-dock/libcd-system-monitor.so
 
@@ -589,9 +590,9 @@ The wifi applet show you the signal strenght of
 the first active connection.
 
 %files -n %{packagename}-wifi
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/wifi
 %{_libdir}/cairo-dock/libcd-wifi.so
+%{_datadir}/cairo-dock/gauges/Wifi_default
 
 #---------------------------------------------------------------------
 %package -n %{packagename}-xfce-integration
@@ -603,7 +604,6 @@ Requires: %{name}-i18n = %{version}
 This applet provides functions for a better integration into XFCE.
 
 %files -n %{packagename}-xfce-integration
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/xfce-integration
 %{_libdir}/cairo-dock/libcd_xfce-integration.so
 
@@ -617,7 +617,6 @@ Requires: %{name}-i18n = %{version}
 Control your TomBoy's notes directly in the dock!
 
 %files -n %{packagename}-tomboy
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/tomboy
 %{_libdir}/cairo-dock/libcd-tomboy.so
 
@@ -632,7 +631,6 @@ the netspeed applet show you the bit rate of your internet connection
 and make some stats on it.
 
 %files -n %{packagename}-netspeed
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/netspeed
 %{_libdir}/cairo-dock/libcd-netspeed.so
 
@@ -641,12 +639,12 @@ and make some stats on it.
 Summary: That package provides a switcher plugins
 Group: Graphical desktop/Other
 Requires: %{name}-i18n = %{version}
+Requires: %{packagename}-shared-files = %{version}
 
 %description -n %{packagename}-switcher
 The new and soon wonderful switcher applet
 
 %files -n %{packagename}-switcher
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/switcher
 %{_libdir}/cairo-dock/libcd-switcher.so
 
@@ -661,12 +659,163 @@ This plug-in lets extern pllication interact on the dock.
 The communication between both sides is based on Dbus.
 
 %files -n %{packagename}-dbus
-%defattr(-, root, root)
 %{_datadir}/cairo-dock/plug-ins/Dbus
 %{_libdir}/cairo-dock/libcd-Dbus.so
+%{_prefix}/lib/cli/cairo-dock-plug-ins/CDApplet.dll
+%{ruby_libdir}/CDApplet.rb
 
 #---------------------------------------------------------------------
-%if %mdkversion >= 201100
+%package -n %{packagename}-showdesktop
+Summary: That package provides a showDesktop plugins
+Group: Graphical desktop/Other
+Requires: %{name}-i18n = %{version}
+Requires: %{packagename}-shared-files = %{version}
+
+%description -n %{packagename}-showdesktop
+This applet let you acces quickly to your desktop.
+
+%files -n %{packagename}-showdesktop
+%{_datadir}/cairo-dock/plug-ins/showDesktop
+%{_libdir}/cairo-dock/libcd-showDesktop.so
+
+#---------------------------------------------------------------------
+%package -n %{packagename}-gnome-integration
+Summary: That package provides a gnome-integration plugins
+Group: Graphical desktop/Other
+Requires: %{name}-i18n = %{version}
+
+%description -n %{packagename}-gnome-integration
+This applet provides functions for a better integration into GNOME.
+
+%files -n %{packagename}-gnome-integration
+%{_datadir}/cairo-dock/plug-ins/gnome-integration
+%{_libdir}/cairo-dock/libcd_gnome-integration.so
+
+#---------------------------------------------------------------------
+%package -n %{packagename}-clipper
+Summary: That package provides plugin "clipper"
+Group: Graphical desktop/Other
+Requires: %{name}-i18n = %{version}
+
+%description -n %{packagename}-clipper
+This applet keeps a trace of the clipboard and mouse selection, so that
+you can recall them quickly. It's a clone of the well-know Klipper.
+
+%files -n %{packagename}-clipper
+%{_datadir}/cairo-dock/plug-ins/Clipper
+%{_libdir}/cairo-dock/libcd-Clipper.so
+
+#---------------------------------------------------------------------
+#disabled until cairo-dock-plugins builds successfully with libgnome-menu-3.0
+
+#%package -n %{packagename}-gmenu
+#Summary: That package provides plugin "gmenu"
+#Group: Graphical desktop/Other
+#Requires: %{name}-i18n = %{version}
+
+#%description -n %{packagename}-gmenu
+#The new and soon wonderful GMenu applet
+
+#%files -n %{packagename}-gmenu
+#%{_datadir}/cairo-dock/plug-ins/GMenu
+#%{_libdir}/cairo-dock/libcd-GMenu.so
+
+#---------------------------------------------------------------------
+%package -n %{packagename}-keyboard-indicator
+Summary: That package provides plugin "keyboard-indicator"
+Group: Graphical desktop/Other
+Requires: %{name}-i18n = %{version}
+
+%description -n %{packagename}-keyboard-indicator
+This applet lets you control the keyboard layout.
+
+%files -n %{packagename}-keyboard-indicator
+%{_datadir}/cairo-dock/plug-ins/keyboard-indicator
+%{_libdir}/cairo-dock/libcd-keyboard-indicator.so
+
+#---------------------------------------------------------------------
+%package -n %{packagename}-weblets
+Summary: That package provides plugin "weblets"
+Group: Graphical desktop/Other
+Requires: %{name}-i18n = %{version}
+
+%description -n %{packagename}-weblets
+The weblets applet allows you to show an interactive web page on your desktop.
+
+%files -n %{packagename}-weblets
+%{_datadir}/cairo-dock/plug-ins/weblets
+%{_libdir}/cairo-dock/libcd-weblets.so
+
+#---------------------------------------------------------------------
+%package -n %{packagename}-rssreader
+Summary: That package provides plugin "rssreader"
+Group: Graphical desktop/Other
+Requires: %{name}-i18n = %{version}
+
+%description -n %{packagename}-rssreader
+This applet is an RSS/Atom feed reader. You can instanciate it as many
+times as you want.
+
+%files -n %{packagename}-rssreader
+%{_libdir}/cairo-dock/libcd-rssreader.so
+%{_datadir}/cairo-dock/plug-ins/RSSreader
+
+#---------------------------------------------------------------------
+%package -n %{packagename}-Folders
+Summary: That package provides plugin "Folders"
+Group: Graphical desktop/Other
+Requires: %{name}-i18n = %{version}
+
+%description -n %{packagename}-Folders
+This applet imports folders inside the Dock.
+
+%files -n %{packagename}-Folders
+%{_libdir}/cairo-dock/libcd-Folders.so
+%{_datadir}/cairo-dock/plug-ins/Folders
+
+#---------------------------------------------------------------------
+%package -n %{packagename}-remote-control
+Summary: That package provides plugin "remote-control"
+Group: Graphical desktop/Other
+Requires: %{name}-i18n = %{version}
+
+%description -n %{packagename}-remote-control
+This plug-in lets you control your dock from the keyboard or even
+a remote controller.
+
+%files -n %{packagename}-remote-control
+%{_libdir}/cairo-dock/libcd-Remote-Control.so
+%{_datadir}/cairo-dock/plug-ins/Remote-Control
+
+#---------------------------------------------------------------------
+%package -n %{packagename}-vala
+Summary: This package provides vala binding for %{packagename}
+Group: Graphical desktop/Other
+
+%description -n %{packagename}-vala
+This package provides vala binding for %{packagename}.
+
+%files -n %{packagename}-vala
+%{_libdir}/libCDApplet.so
+%{_libdir}/pkgconfig/CDApplet.pc
+%{_datadir}/vala*/vapi/CDApplet.*
+
+#---------------------------------------------------------------------
+%package -n %{packagename}-status-notifier
+Summary:    That package provides plugin "status-notifier"
+Group:      Graphical desktop/Other
+Requires:   %{name}-i18n = %{version}
+
+%description -n %{packagename}-status-notifier
+This package provides plugin Status Notifier for %{packagename}.
+
+%files -n %{packagename}-status-notifier
+%{_libdir}/cairo-dock/libcd-status-notifier.so
+%{_libdir}/cairo-dock/status-notifier-watcher
+%{_datadir}/cairo-dock/plug-ins/Status-Notifier
+
+#---------------------------------------------------------------------
+
 %package -n %{packagename}-recent-events
 Summary:     Recent-Events applet based on Zeitgeist framework
 Group:       Graphical desktop/Other
@@ -682,222 +831,29 @@ Features:
 * huge list of recent items
 
 %files -n %{packagename}-recent-events
-%defattr(-, root, root)
 %{_libdir}/cairo-dock/libcd-Recent-Events.so
 %{_datadir}/cairo-dock/plug-ins/Recent-Events/*
-%endif
 
 #---------------------------------------------------------------------
-%package -n %{packagename}-showdesktop
-Summary: That package provides a showDesktop plugins
-Group: Graphical desktop/Other
-Requires: %{name}-i18n = %{version}
-Requires: %{packagename}-shared-files = %{version}
 
-%description -n %{packagename}-showdesktop
-This applet let you acces quickly to your desktop.
-
-%files -n %{packagename}-showdesktop
-%defattr(-, root, root)
-%{_datadir}/cairo-dock/plug-ins/showDesktop
-%{_libdir}/cairo-dock/libcd-showDesktop.so
-
-#---------------------------------------------------------------------
-%if %mdkversion > 200800
-%package -n %{packagename}-gnome-integration
-Summary: That package provides a gnome-integration plugins
-Group: Graphical desktop/Other
-Requires: %{name}-i18n = %{version}
-
-%description -n %{packagename}-gnome-integration
-This applet provides functions for a better integration into GNOME.
-
-%files -n %{packagename}-gnome-integration
-%defattr(-, root, root)
-%{_datadir}/cairo-dock/plug-ins/gnome-integration
-%{_libdir}/cairo-dock/libcd_gnome-integration.so
-%endif
-
-#---------------------------------------------------------------------
-%package -n %{packagename}-clipper
-Summary: That package provides plugin "clipper"
-Group: Graphical desktop/Other
-Requires: %{name}-i18n = %{version}
-
-%description -n %{packagename}-clipper
-This applet keeps a trace of the clipboard and mouse selection, so that
-you can recall them quickly. It's a clone of the well-know Klipper.
-
-%files -n %{packagename}-clipper
-%defattr(-, root, root)
-%{_datadir}/cairo-dock/plug-ins/Clipper
-%{_libdir}/cairo-dock/libcd-Clipper.so
-
-#---------------------------------------------------------------------
-%package -n %{packagename}-keyboard-indicator
-Summary: That package provides plugin "keyboard-indicator"
-Group: Graphical desktop/Other
-Requires: %{name}-i18n = %{version}
-
-%description -n %{packagename}-keyboard-indicator
-This applet lets you control the keyboard layout.
-
-%files -n %{packagename}-keyboard-indicator
-%defattr(-, root, root)
-%{_datadir}/cairo-dock/plug-ins/keyboard-indicator
-%{_libdir}/cairo-dock/libcd-keyboard-indicator.so
-
-#---------------------------------------------------------------------
-%package -n %{packagename}-weblets
-Summary: That package provides plugin "weblets"
-Group: Graphical desktop/Other
-Requires: %{name}-i18n = %{version}
-
-%description -n %{packagename}-weblets
-The weblets applet allows you to show an interactive web page on your desktop.
-
-%files -n %{packagename}-weblets
-%defattr(-, root, root)
-%{_datadir}/cairo-dock/plug-ins/weblets
-%{_libdir}/cairo-dock/libcd-weblets.so
-
-#---------------------------------------------------------------------
-%package -n %{packagename}-rssreader
-Summary: That package provides plugin "rssreader"
-Group: Graphical desktop/Other
-Requires: %{name}-i18n = %{version}
-
-%description -n %{packagename}-rssreader
-This applet is an RSS/Atom feed reader. You can instanciate it as many
-times as you want.
-
-%files -n %{packagename}-rssreader
-%defattr(-, root, root)
-%{_libdir}/cairo-dock/libcd-rssreader.so
-%{_datadir}/cairo-dock/plug-ins/RSSreader
-
-#---------------------------------------------------------------------
-%package -n %{packagename}-Folders
-Summary: That package provides plugin "Folders"
-Group: Graphical desktop/Other
-Requires: %{name}-i18n = %{version}
-
-%description -n %{packagename}-Folders
-This applet imports folders inside the Dock.
-
-%files -n %{packagename}-Folders
-%defattr(-, root, root)
-%{_libdir}/cairo-dock/libcd-Folders.so
-%{_datadir}/cairo-dock/plug-ins/Folders
-
-#---------------------------------------------------------------------
-%package -n %{packagename}-remote-control
-Summary: That package provides plugin "remote-control"
-Group: Graphical desktop/Other
-Requires: %{name}-i18n = %{version}
-
-%description -n %{packagename}-remote-control
-This plug-in lets you control your dock from the keyboard or even
-a remote controller.
-
-%files -n %{packagename}-remote-control
-%defattr(-, root, root)
-%{_libdir}/cairo-dock/libcd-Remote-Control.so
-%{_datadir}/cairo-dock/plug-ins/Remote-Control
-
-#---------------------------------------------------------------------
-%if %mdkversion >= 201100
-%package -n %{packagename}-vala
-Summary: This package provides vala binding for %{packagename}
-Group: Graphical desktop/Other
-
-%description -n %{packagename}-vala
-This package provides vala binding for %{packagename}.
-
-%files -n %{packagename}-vala
-%defattr(-, root, root)
-%{_libdir}/libCDApplet.so
-%{_libdir}/pkgconfig/CDApplet.pc
-%{_datadir}/vala*/vapi/CDApplet.*
-%endif
-
-#---------------------------------------------------------------------
-%package -n %{packagename}-shared-files
-Summary: Shared images for plugins
-Group: Graphical desktop/Other
-Obsoletes: %{packagename}-shared-images < %{version}
-
-%description -n %{packagename}-shared-files
-This package provides shared files for plugins.
-
-%files -n %{packagename}-shared-files
-%defattr(-, root, root)
-%{_datadir}/cairo-dock/plug-ins/shared-files
-
-#---------------------------------------------------------------------
-%package -n %{packagename}-composite-manager
-Summary: That package provides plugin "composite-manager"
-Group: Graphical desktop/Other
-Requires: %{name}-i18n = %{version}
-Requires: %{packagename}-shared-files = %{version}
-
-%description -n %{packagename}-composite-manager
-This applet allows you to toggle the composite ON/OFF.
-
-%files -n %{packagename}-composite-manager
-%defattr(-, root, root)
-%{_datadir}/cairo-dock/plug-ins/Composite-Manager
-%{_libdir}/cairo-dock/libcd-Composite-Manager.so
-#---------------------------------------------------------------------
-
-%package -n %{packagename}-status-notifier
-Summary:    That package provides plugin "status-notifier"
-Group:      Graphical desktop/Other
-Requires:   %{name}-i18n = %{version}
-
-%description -n %{packagename}-status-notifier
-This package provides plugin Status Notifier for %{packagename}.
-
-%files -n %{packagename}-status-notifier
-%defattr(-, root, root)
-%{_libdir}/cairo-dock/libcd-status-notifier.so
-#%{_libdir}/cli/CDApplet.dll
-%{ruby_libdir}/CDApplet.rb
-%{_datadir}/cairo-dock/plug-ins/Status-Notifier
-%{_libdir}/cairo-dock/status-notifier-watcher
-
-#---------------------------------------------------------------------
-%package -n %{packagename}-gmenu
-Summary: That package provides plugin "gmenu"
-Group: Graphical desktop/Other
-Requires: %{name}-i18n = %{version}
-
-%description -n %{packagename}-gmenu
-The new and soon wonderful GMenu applet
-
-%files -n %{packagename}-gmenu
-%defattr(-, root, root)
-%{_datadir}/cairo-dock/plug-ins/GMenu
-%{_libdir}/cairo-dock/libcd-GMenu.so
-#---------------------------------------------------------------------
 %package -n %{packagename}-impulse
-Summary: That package provides plugin "impulse"
-Group: Graphical desktop/Other
-Requires: %{name}-i18n = %{version}
+Summary:     That package provides plugin "Impulse"
+Group:       Graphical desktop/Other
+Requires:    %{name}-i18n = %{version}
 
 %description -n %{packagename}-impulse
-Graphical equalizer in the dock depending on the signal given by PulseAudio.
+This applet analyse the signal given by PulseAudio
+and provides a graphical equalizer into the dock.
 
 %files -n %{packagename}-impulse
-%defattr(-, root, root)
-%{_datadir}/cairo-dock/plug-ins/Impulse
 %{_libdir}/cairo-dock/libcd-Impulse.so
+%{_datadir}/cairo-dock/plug-ins/Impulse/*
+
 #---------------------------------------------------------------------
 
-
 %prep
-%setup -qn %{name}-%{version}
-%patch0 -p1 -b .ruby_path~
+%setup -q
+%apply_patches
 
 for i in */src/CMakeLists.txt
 do
@@ -910,6 +866,7 @@ done
 
 %install
 %makeinstall_std -C build
-rm -f %{buildroot}/usr/lib/cli/cairo-dock-plug-ins/CDApplet.dll
 
-%find_lang %{name}
+rm -f %{buildroot}%{_libdir}/cairo-dock/cairo-dock-unity-bridge
+
+%find_lang %name
