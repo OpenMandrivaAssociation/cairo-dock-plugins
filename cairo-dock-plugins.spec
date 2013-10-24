@@ -9,6 +9,7 @@ Group:		Graphical desktop/Other
 Source0: 	http://launchpad.net/cairo-dock-plug-ins/3.2/%{version}/+download/cairo-dock-plugins-%{version}.tar.gz
 # From Arch Linux:
 Patch0:		cairo-dock-plugins-3.0.2-applet-host-ias.patch
+Patch1:		cairo-dock-plugins-3.2.1-ruby-prefix.patch
 URL:		https://launchpad.net/cairo-dock-plug-ins
 Requires:	cairo-dock >= %version
 BuildRequires:	cairo-dock-devel = %{version}
@@ -92,6 +93,8 @@ Requires:	%{packagename}-rssreader
 Requires:	%{packagename}-Folders
 Requires:	%{packagename}-remote-control
 Requires:	%{packagename}-composite-manager
+Requires:	%{packagename}-sound-effects
+Requires:	%{packagename}-screenshot
 Obsoletes:	%{packagename}-showdesklets < 2.1.3
 
 %description
@@ -661,6 +664,7 @@ The communication between both sides is based on Dbus.
 %files -n %{packagename}-dbus
 %{_datadir}/cairo-dock/plug-ins/Dbus
 %{_libdir}/cairo-dock/libcd-Dbus.so
+%{_libdir}/cairo-dock/cairo-dock-launcher-API-daemon
 %{_prefix}/lib/cli/cairo-dock-plug-ins/CDApplet.dll
 %{ruby_libdir}/CDApplet.rb
 
@@ -848,6 +852,35 @@ and provides a graphical equalizer into the dock.
 %files -n %{packagename}-impulse
 %{_libdir}/cairo-dock/libcd-Impulse.so
 %{_datadir}/cairo-dock/plug-ins/Impulse/*
+
+#---------------------------------------------------------------------
+
+%package -n %{packagename}-screenshot
+Summary:	That package provides plugin "Screenshot"
+Group:		Graphical desktop/Other
+Requires:	%{name}-i18n = %{version}
+
+%description -n %{packagename}-screenshot
+A simple applet to quickly take screenshots.
+
+%files -n %{packagename}-screenshot
+%{_libdir}/cairo-dock/libcd-Screenshot.so
+%{_datadir}/cairo-dock/plug-ins/Screenshot
+
+#---------------------------------------------------------------------
+
+%package -n %{packagename}-sound-effects
+Summary:	That package provides plugin "Sound-Effects"
+Group:		Graphical desktop/Other
+Requires:	%{name}-i18n = %{version}
+
+%description -n %{packagename}-sound-effects
+This plug-in add sound effects on various events in the dock:
+When clicking an icon, when hovering an icon, etc
+
+%files -n %{packagename}-sound-effects
+%{_libdir}/cairo-dock/libcd-Sound-Effects.so
+%{_datadir}/cairo-dock/plug-ins/Sound-Effects
 
 #---------------------------------------------------------------------
 
