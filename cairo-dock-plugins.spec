@@ -194,11 +194,14 @@ Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-dnd2share
 This applet lets you share files easily :
-Drag-and-drop a file on the icon to upload it to one of the available hosting sites.
+Drag-and-drop a file on the icon to upload it to one of the available
+hosting sites.
 It supports many sites, like DropBox, Imageshack, pastebin, etc
 You can upload text, image, video, and files.
-The resulting URL is automatically stored in the clipboard to be directly copied by CTRL+v.
-It can keep an history of your last uploads to retrieve them without any account.
+The resulting URL is automatically stored in the clipboard to be
+directly copied by CTRL+v.
+It can keep an history of your last uploads to retrieve them without
+any account.
 You'll need to install 'curl' and 'wget' to upload the data.
 
 %files -n %{packagename}-dnd2share
@@ -212,7 +215,8 @@ Group: Graphical desktop/Other
 Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-drop_indicator
-This plug-in displays an animated indicator when you drop something in the dock.
+This plug-in displays an animated indicator when you drop something in
+the dock.
 
 %files -n %{packagename}-drop_indicator
 %{_datadir}/cairo-dock/plug-ins/drop-indicator
@@ -268,7 +272,8 @@ Group: Graphical desktop/Other
 Requires: %{name}-i18n = %{version}
 
 %description -n %{packagename}-kde-integration
-This applet provides functions for a better integration into a KDE environnement.
+This applet provides functions for a better integration into a KDE
+environnement.
 It is auto-activated, so you don't need to activate it.
 It is designed for KDE4.
 
@@ -572,10 +577,13 @@ Obsoletes: %{packagename}-cpusage < 2.1.2
 Obsoletes: %{packagename}-nvidia < 2.1.2
 
 %description -n %{packagename}-System-monitor
-This applet shows you the CPU load, RAM usage, graphic card temperature, etc.
+This applet shows you the CPU load, RAM usage, graphic card 
+temperature, etc.
 Middle click on the icon to get some valuable info.
-Left click on the icon to get a list of the most ressources using programs.
-You can instanciate this applet several times to show different values each time.
+Left click on the icon to get a list of the most ressources using
+programs.
+You can instanciate this applet several times to show different values
+each time.
 
 %files -n %{packagename}-System-monitor
 %{_datadir}/cairo-dock/plug-ins/System-monitor
