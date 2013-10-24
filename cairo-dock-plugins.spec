@@ -2,11 +2,11 @@
 
 Summary:	Plugins for cairo-dock
 Name:     	cairo-dock-plugins
-Version:	3.1.0
-Release:	%mkrel 1
+Version:	3.2.0
+Release:	1
 License:	GPLv3+
 Group:		Graphical desktop/Other
-Source0: 	http://launchpad.net/cairo-dock-plug-ins/3.1/%{version}/+download/cairo-dock-plugins-%{version}.tar.gz
+Source0: 	http://launchpad.net/cairo-dock-plug-ins/3.2/%{version}/+download/cairo-dock-plugins-%{version}.tar.gz
 # From Arch Linux:
 Patch0:		cairo-dock-plugins-3.0.2-applet-host-ias.patch
 URL:		https://launchpad.net/cairo-dock-plug-ins
