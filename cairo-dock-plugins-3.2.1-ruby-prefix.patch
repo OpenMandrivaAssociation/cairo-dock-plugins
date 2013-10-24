@@ -1,0 +1,13 @@
+--- cairo-dock-plugins-3.2.1/CMakeLists.txt~	2013-04-05 05:40:14.000000000 +0800
++++ cairo-dock-plugins-3.2.1/CMakeLists.txt	2013-09-24 17:10:26.918875591 +0800
+@@ -519,10 +519,6 @@
+ 		set (PROGRAMS_MISSING "${PROGRAMS_MISSING} ruby")
+ 		set (with_ruby no)
+ 	else()
+-		# /usr/lib/ruby/1.8 or /usr/lib/ruby/1.9.1
+-		string (REGEX REPLACE "lib/ruby/[0-9].[0-9]?.+" "" RUBY_LIB_DIR_INSTALL "${RUBY_LIB_DIR}")
+-		string (REGEX REPLACE "${RUBY_LIB_DIR_INSTALL}" "" RUBY_LIB_DIR_INSTALL "${RUBY_LIB_DIR}")
+-		set (RUBY_LIB_DIR "${CMAKE_INSTALL_PREFIX}/${RUBY_LIB_DIR_INSTALL}")
+ 		message (STATUS "   will be installed in: ${RUBY_LIB_DIR}")
+ 		set (RUBY_FOUND "TRUE")
+ 		set (with_ruby yes)
