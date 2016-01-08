@@ -1,16 +1,18 @@
 %define packagename cairo-dock
 
+%define oname cairo-dock-plug-ins
+
 Summary:	Plugins for cairo-dock
 Name:     	cairo-dock-plugins
-Version:	3.2.0
-Release:	2
+Version:	3.4.1
+Release:	1
 License:	GPLv3+
 Group:		Graphical desktop/Other
-Source0: 	http://launchpad.net/cairo-dock-plug-ins/3.2/%{version}/+download/cairo-dock-plugins-%{version}.tar.gz
+Source0:	https://github.com/Cairo-Dock/%{oname}/releases/download/%{version}/%{oname}-%{version}.tar.gz
 # From Arch Linux:
 Patch0:		cairo-dock-plugins-3.0.2-applet-host-ias.patch
 Patch1:		cairo-dock-plugins-3.2.1-ruby-prefix.patch
-URL:		https://launchpad.net/cairo-dock-plug-ins
+URL:		https://glx-dock.org
 Requires:	cairo-dock >= %version
 BuildRequires:	cairo-dock-devel = %{version}
 BuildRequires:	cmake
