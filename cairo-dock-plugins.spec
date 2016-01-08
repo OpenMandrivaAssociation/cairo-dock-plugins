@@ -9,6 +9,7 @@ Release:	1
 License:	GPLv3+
 Group:		Graphical desktop/Other
 Source0:	https://github.com/Cairo-Dock/%{oname}/releases/download/%{version}/%{oname}-%{version}.tar.gz
+Source100:	cairo-dock-plugins.rpmlintrc
 # From Arch Linux:
 Patch0:		cairo-dock-plugins-3.0.2-applet-host-ias.patch
 Patch1:		cairo-dock-plugins-3.2.1-ruby-prefix.patch
