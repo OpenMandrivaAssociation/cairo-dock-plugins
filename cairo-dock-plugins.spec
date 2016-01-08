@@ -676,6 +676,11 @@ The communication between both sides is based on Dbus.
 %{_libdir}/cairo-dock/cairo-dock-launcher-API-daemon
 %{_prefix}/lib/cli/cairo-dock-plug-ins/CDApplet.dll
 %{ruby_libdir}/CDApplet.rb
+%{py_puresitedir}/*
+%{py3_puresitedir}/*
+# Vala interface
+%{_libdir}/libCDApplet.so.1
+%{_libdir}/libCDApplet.so.1.0.0
 
 #---------------------------------------------------------------------
 %package -n %{packagename}-showdesktop
