@@ -5,7 +5,7 @@
 Summary:	Plugins for cairo-dock
 Name:     	cairo-dock-plugins
 Version:	3.4.1
-Release:	1
+Release:	2
 License:	GPLv3+
 Group:		Graphical desktop/Other
 Source0:	https://github.com/Cairo-Dock/%{oname}/releases/download/%{version}/%{oname}-%{version}.tar.gz
@@ -13,6 +13,8 @@ Source100:	cairo-dock-plugins.rpmlintrc
 # From Arch Linux:
 Patch0:		cairo-dock-plugins-3.0.2-applet-host-ias.patch
 Patch1:		cairo-dock-plugins-3.2.1-ruby-prefix.patch
+Patch2:		cairo-dock-plugins-3.4.1-port-WebKit2.patch
+Patch3:		cairo-dock-plugins-3.4.1-time_h-confict.patch
 URL:		https://glx-dock.org
 Requires:	cairo-dock >= %version
 BuildRequires:	cairo-dock-devel = %{version}
@@ -42,7 +44,7 @@ BuildRequires:	pkgconfig(ndesk-dbus-1.0)
 BuildRequires:	pkgconfig(ndesk-dbus-glib-1.0)
 BuildRequires:	pkgconfig(upower-glib)
 BuildRequires:	pkgconfig(vte-2.91)
-BuildRequires:	pkgconfig(webkitgtk-3.0)
+BuildRequires:	pkgconfig(webkit2gtk-4.0)
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(xxf86vm)
 BuildRequires:	pkgconfig(xrandr)
