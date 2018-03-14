@@ -677,7 +677,6 @@ The communication between both sides is based on Dbus.
 %{_datadir}/cairo-dock/plug-ins/Dbus
 %{_libdir}/cairo-dock/libcd-Dbus.so
 %{_libdir}/cairo-dock/cairo-dock-launcher-API-daemon
-%{_prefix}/lib/cli/cairo-dock-plug-ins/CDApplet.dll
 %{ruby_libdir}/CDApplet.rb
 %{py2_puresitedir}/*
 %{py3_puresitedir}/*
