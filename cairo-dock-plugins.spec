@@ -5,7 +5,7 @@
 Summary:	Plugins for cairo-dock
 Name:     	cairo-dock-plugins
 Version:	3.4.1
-Release:	2
+Release:	3
 License:	GPLv3+
 Group:		Graphical desktop/Other
 Source0:	https://github.com/Cairo-Dock/%{oname}/releases/download/%{version}/%{oname}-%{version}.tar.gz
