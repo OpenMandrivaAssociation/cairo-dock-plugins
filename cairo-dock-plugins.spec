@@ -902,7 +902,7 @@ When clicking an icon, when hovering an icon, etc
 
 %prep
 %setup -q
-%apply_patches
+%autopatch -p1
 
 for i in */src/CMakeLists.txt
 do
